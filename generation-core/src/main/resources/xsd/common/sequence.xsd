@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ArrayOfSequence" type="ArrayOfSequenceType"/>
+  <xs:complexType name="ArrayOfSequenceType">
+    <xs:sequence>
+      <xs:element type="SequenceType" name="Sequence" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SequenceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="Id" use="optional"/>
+        <xs:attribute type="xs:string" name="EnName" use="optional"/>
+        <xs:attribute type="xs:string" name="ChName" use="optional"/>
+        <xs:attribute type="xs:string" name="StartValue" use="optional"/>
+        <xs:attribute type="xs:string" name="DailyReset" use="optional"/>
+        <xs:attribute type="xs:string" name="IsRebootContinue" use="optional"/>
+        <xs:attribute type="xs:string" name="ForOracle" use="optional"/>
+        <xs:attribute type="xs:string" name="ForMDB" use="optional"/>
+        <xs:attribute type="xs:string" name="MDBList" use="optional"/>
+        <xs:attribute type="xs:string" name="RecoveryFrom" use="optional"/>
+        <xs:attribute type="xs:string" name="RecoverySqlOracle" use="optional"/>
+        <xs:attribute type="xs:string" name="RecoverySqlMySql" use="optional"/>
+        <xs:attribute type="xs:string" name="Remark" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

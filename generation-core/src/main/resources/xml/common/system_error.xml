@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ArrayOfSystemError xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SystemError Id="10000" EnName="security_not_found" Describe="找不到证券资料" ForServer="true" />
+  <SystemError Id="10001" EnName="inst_not_found" Describe="找不到机构信息" ForServer="true" />
+  <SystemError Id="10002" EnName="product_not_found" Describe="找不到产品信息" ForServer="true" />
+  <SystemError Id="20000" EnName="risk_violation" Describe="由于触发风控，所有请求均无法继续下达" ForServer="true" />
+  <SystemError Id="404" EnName="session_not_found_or_expire" Describe="会话不存在或已过期" ForServer="false" Remark="400-420的错误号预留给会话不存在" />
+  <SystemError Id="405" EnName="offline_user_password_change" Describe="操作员密码已修改" ForServer="false" />
+  <SystemError Id="406" EnName="offline_user_right_change" Describe="操作员权限已修改" ForServer="false" />
+  <SystemError Id="407" EnName="offline_user_login" Describe="操作员帐号在别处登录" ForServer="false" />
+  <SystemError Id="408" EnName="offline_user_sysparam_change" Describe="系统参数已修改" ForServer="false" />
+  <SystemError Id="409" EnName="offline_user_sysstatus_change" Describe="系统状态已变更" ForServer="false" />
+  <SystemError Id="410" EnName="offline_user_status_change" Describe="操作员状态已变更" ForServer="false" />
+  <SystemError Id="411" EnName="offline_user_auth_change" Describe="授权功能变更" ForServer="false" />
+  <SystemError Id="412" EnName="offline_user_station_change" Describe="操作员站点变更" ForServer="false" />
+  <SystemError Id="413" EnName="offline_user_ip_change" Describe="操作员IP地址变更" ForServer="false" />
+  <SystemError Id="100" EnName="mdb_not_init" Describe="MDB未初始化，无法进行RPC请求" ForServer="true" />
+  <SystemError Id="101" EnName="clear_or_maintance" Describe="系统正在进行清算" ForServer="false" />
+  <SystemError Id="10003" EnName="order_has_confirmed" Describe="订单已经确认过" ForServer="true" />
+  <SystemError Id="501" EnName="service_disable" Describe="服务禁用" ForServer="true" />
+  <SystemError Id="502" EnName="service_not_found" Describe="找不到服务" ForServer="true" />
+  <SystemError Id="1" EnName="service_not_start" Describe="节点未启动" ForServer="true" />
+  <SystemError Id="334" EnName="unknown_msgtopic" Describe="未知消息主题" ForServer="true" />
+  <SystemError Id="335" EnName="no_auth" Describe="权限不足" ForServer="true" />
+  <SystemError Id="-100" EnName="amqp_connection_error" Describe="amqp连接错误" ForServer="true" Remark="从-100到-10000预留给框架层错误" />
+  <SystemError Id="-101" EnName="rpc_call_timeout" Describe="rpc调用超时" ForServer="true" />
+  <SystemError Id="-102" EnName="queue_not_exit" Describe="队列不存在" ForServer="true" />
+  <SystemError Id="20001" EnName="amt_not_available" Describe="单元：#unit_id#，买入可用金额不足，可用金额：#available_amt#，委托金额：#order_amt#。" ForServer="true" />
+  <SystemError Id="20003" EnName="order_qty_over_uperlimit" Describe="委托数量超过数量上限。数量:#qty#，上限数量:#uper_qty#。" ForServer="true" />
+  <SystemError Id="20004" EnName="order_qty_down_lowerlimit" Describe="委托数量低于数量下限。数量:#qty#，下限数量:#lower_qty#。" ForServer="true" />
+  <SystemError Id="20005" EnName="security_unit_limit" Describe="委托数量不为#unit_limit#的整数倍，单元：#unit_id#，证券：#security_code#，委托数量：#order_qty#。" ForServer="true" />
+  <SystemError Id="20006" EnName="price_tick_limit" Describe="订单价格不符合最小价差. 证券:#security_code#, 市场:#mkt_id#, 价格:#price#, 价差:#tick_limit#。" ForServer="true" />
+  <SystemError Id="20007" EnName="qoute_uplimited_price_error" Describe="市价委托时行情错误。涨停价小于等于0，涨停价:#uperlimited_price#。" ForServer="true" />
+  <SystemError Id="20008" EnName="kindtype_not_support_mktprice_buy" Describe="当前品种：#type#不支持市价买入。" ForServer="true" />
+  <SystemError Id="20009" EnName="notsupport_pricetype" Describe="错误的价格类型：#price_type#。" ForServer="true" />
+  <SystemError Id="20010" EnName="bond_pricetype_error" Describe="债券买卖价格类型只能为限价，当前价格类型#price_type#：" ForServer="true" />
+  <SystemError Id="20011" EnName="qoute_downlimited_price_error" Describe="市价委托时行情错误。跌停价小于等于0，跌停价:#downlimited_price#" ForServer="true" />
+  <SystemError Id="20012" EnName="odd_sale_error" Describe="该笔委托不满足零股的卖出规则，单元名称：#unit_name#，证券代码：#security_code#，委托数量#order_qty#，可用数量：#available_qty#" ForServer="true" />
+  <SystemError Id="20013" EnName="sale_qty_available_zero" Describe="可卖数量为0" ForServer="true" />
+  <SystemError Id="20014" EnName="sale_qty_not_available" Describe="单元：#unit_id#，证券：#security_code#的可卖数量不足，当前可卖为:#available_qty#。" ForServer="true" />
+  <SystemError Id="20015" EnName="insbuy_limit_order_price_error" Describe="限价买入指令委托价格需要小于等于指令价格，交易方向：#side_code#,指令价格：#ins_price# ,委托价格：#order_price#" ForServer="true" />
+  <SystemError Id="20016" EnName="ins_order_remain_qty_not_available" Describe="指令可委托数量不足。指令可委托数量:#available_remain_qty#,委托数量:#order_qty#。" ForServer="true" />
+  <SystemError Id="20017" EnName="inssale_limit_order_price_error" Describe="限价卖出指令委托价格需要大于等于指令价格，交易方向：#side_code#,指令价格：#ins_price# ,委托价格：#order_price#。" ForServer="true" />
+  <SystemError Id="20018" EnName="gj_scheme_ins_code_not_found" Describe="未找到国君算法方案关系记录，加锁失败。国君算法子单号：#gj_scheme_ins_code#" ForServer="false" />
+  <SystemError Id="20019" EnName="combistock_not_available" Describe="持仓可用不足，当前持仓为0。证券：#security_code#，组合：#combi_id#，投资类型：#invest_type#，席位：#bind_seat#，股东：#shareholder_id#。" ForServer="true" Remark="未获取到持仓使用该错误号" />
+  <SystemError Id="20020" EnName="order_withoutcomfirm_notsupport_cancel" Describe="订单未经确认无法撤销。订单序号：#order_serial_id#。" ForServer="true" />
+  <SystemError Id="20021" EnName="order_withoutreport_notsupport_cancel" Describe="订单未报不支持撤单,订单编号:#order_serial_id#。" ForServer="true" />
+  <SystemError Id="20022" EnName="curr_orderstatus_notsupport_cancel" Describe="委托状态为#order_status#时，不允许撤单操作。" ForServer="true" />
+  <SystemError Id="20023" EnName="external_order_repeat" Describe="外部系统委托号#external_order_id#重复" ForServer="true" />
+  <SystemError Id="20024" EnName="combistock_not_available_and_need" Describe="持仓可用不足。可用持仓：#avail_qty#，需要持仓：#need_qty#，证券：#security_code#,组合：#combi_id#，投资类型：#invest_type#，席位：#bind_seat#，股东：#shareholder_id#。" ForServer="true" Remark="获取到持仓并且持仓可用不足,使用该错误号" />
+  <SystemError Id="20025" EnName="external_insid_repeat" Describe="外部指令序号#external_insid#重复" ForServer="true" />
+  <SystemError Id="20026" EnName="ins_order_remain_amt_not_available" Describe="指令可委托金额不足。指令可委托金额:#available_remain_amt#,委托金额:#order_amt#。" ForServer="true" />
+  <SystemError Id="20027" EnName="ins_need_no_order" Describe="当前指令状态不能继续下达委托，指令号：#ins_id#，指令证券号：#ins_sec_id#，指令状态：#ins_status#" ForServer="true" />
+  <SystemError Id="20028" EnName="kcb_orderprice_error" Describe="科创板市价前台传入保护价不能小于等于0，传入值：#order_price#" ForServer="true" />
+  <SystemError Id="30001" EnName="fix_ins_unfound" Describe="FIX指令未找到，外部指令序号#external_fix_ins_id#，外部系统委托序号#external_order_id#。" ForServer="true" />
+  <SystemError Id="20029" EnName="flow_control_second" Describe="本笔委托已经达到系统每秒申报流速上限，请稍后重试，系统设置每秒申报上限：#p_300090#" ForServer="true" />
+  <SystemError Id="20030" EnName="flow_control_minute" Describe="本笔委托已经达到系统每分钟申报流速上限，请稍后重试，系统设置每分钟申报上限：#p_300091#" ForServer="true" />
+  <SystemError Id="20031" EnName="ins_direct_amt_available_lack" Describe="资金可用不足，订单方向：#side_code_name#，可用金额：#available_amt#，指令金额：#ins_amt#" ForServer="true" />
+  <SystemError Id="20032" EnName="execute_qty_over_order_qty" Describe="子单#order_id#委托量超过算法方案明细订单量" ForServer="true" />
+  <SystemError Id="20033" EnName="order_cancel_freq" Describe="同一笔委托撤单频率太快。被撤委托序号：#cur_order_serial_id#，上次撤单委托序号：#pre_order_serial_id#，当前时间：#cur_time#，上次撤单时间：#pre_time#,系统重复撤单频率设置值：#param_value#" ForServer="true" />
+  <SystemError Id="20034" EnName="modify_qty_overins" Describe="修改后的数量不能小于已委托数量，修改后数量：#modify_qty#,已委托数量：#order_qty#" ForServer="true" />
+  <SystemError Id="10004" EnName="ins_finish_modify_fail" Describe="指令修改失败原指令状态:#ins_status#,原指令序号:#ins_id#" ForServer="true" />
+</ArrayOfSystemError>

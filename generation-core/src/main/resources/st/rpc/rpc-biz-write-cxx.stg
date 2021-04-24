@@ -1,0 +1,11 @@
+writeCxxFileTemplate(params)
+::= <<
+
+<params.hashKey>include "write_<params.serviceName>_service.h"
+
+void longshare::mdbcom::<params.serviceName>::inner_request(rx::tradecore::ITradeContext* context)
+{
+  //Write your code here
+}
+
+>>

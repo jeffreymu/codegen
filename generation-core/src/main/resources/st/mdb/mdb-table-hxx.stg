@@ -1,0 +1,62 @@
+mdbTableHeaderFileTemplate(params)
+::= <<
+
+<params.hashKey>ifndef RXMDB<params.upperTableModuleName>_MTT<params.upperTableName>_IMPL_H_
+<params.hashKey>define RXMDB<params.upperTableModuleName>_MTT<params.upperTableName>_IMPL_H_
+
+<params.hashKey>include \<boost/timer/timer.hpp>
+<params.hashKey>include "rxmdb/mtablebase.h"
+<params.hashKey>include "rxmdb/mtable.h"
+<params.hashKey>include "rxmdb/mindexlist.h"
+<params.hashKey>include \<rxcommon/string.h>
+<params.hashKey>include \<rxcommon/math.h>
+<params.hashKey>include \<rxcommon/double_compare.h>
+
+using namespace std;
+using namespace boost::timer;
+
+namespace rxmdb_<params.tableModuleName>
+{
+
+class rxmdb::mtransaction;
+
+typedef struct s_mr_<params.name>
+{
+    <params.tableFields:{ s | <s.type> <s.name><s.length>; <\n>}>
+    s_mr_<params.name>()
+    {
+        memset(this, 0, sizeof(s_mr_<params.name>));
+    }
+} mr_<params.name>;
+
+class mt_<params.name>: public rxmdb::mtable\<mr_<params.name>\>
+{
+private:
+    static bool cmp(const mr_<params.name> *a, const mr_<params.name> *b);
+
+public:
+    mt_<params.name>();
+    void sort(std::vector\<const void *> *list);
+    rxmdb::mindexlist *create_indexs();
+    void init_indexs(rxmdb::mindexlist &v, bool partitional);
+    int get_parition_key(const void *record) const;
+    bool is_diff_record(const void *r1, const void *r2) const;
+    void before_insert(void *record, const rxmdb::mtransaction *t);
+    void before_update(void *record, const rxmdb::mtransaction *t);
+
+    const mr_<params.name> *get0(<params.pkIndexParam>);
+<params.tableIndexes:{ s |
+    void get<s.no>(vector\<const mr_<params.name> *> *list, <s.fieldName>);
+    int get<s.no>_size(<s.fieldName>) const;
+    const mr_<params.name> *get<s.no>_first(<s.fieldName>);
+}>
+<params.indexOrders:{ o |
+    static bool mindex<o>_cmp_func(const void *a, const void *b);
+    static size_t mindex<o>_hash_func(const void *a);
+}>
+};
+
+}
+
+<params.hashKey>endif /* RXMDB<params.upperModule>_MTT<params.tableName>_IMPL_H_ */
+>>

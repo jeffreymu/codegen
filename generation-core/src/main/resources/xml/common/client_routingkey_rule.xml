@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ArrayOfClientRoutingKeyRule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ClientRoutingKeyRule SubsystemId="2" ModuleChName="*" ServiceEnName="*" RoutingKey="trade" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="9" ModuleChName="*" ServiceEnName="*" RoutingKey="trade" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="1" ModuleChName="*" ServiceEnName="*" RoutingKey="asf.biz" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="3" ModuleChName="清算查询" ServiceEnName="p_load_clearoplog" RoutingKey="clear" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="4" ModuleChName="frontprocess" ServiceEnName="front_securityqty_frozen" RoutingKey="front_o3ufx" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="4" ModuleChName="report" ServiceEnName="cfets_bond_yield_calc" RoutingKey="jreport" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="4" ModuleChName="report" ServiceEnName="fix_enable_qty_qry" RoutingKey="report" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="4" ModuleChName="report" ServiceEnName="fix_enable_amt_qry" RoutingKey="report" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="5" ModuleChName="*" ServiceEnName="*" RoutingKey="asf.biz" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="8" ModuleChName="*" ServiceEnName="*" RoutingKey="trade" CreationDate="0" />
+  <ClientRoutingKeyRule SubsystemId="15" ModuleChName="*" ServiceEnName="*" RoutingKey="trade" CreationDate="0" />
+</ArrayOfClientRoutingKeyRule>

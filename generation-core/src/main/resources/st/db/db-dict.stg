@@ -1,0 +1,57 @@
+dictSqlTemplate(params)
+::= <<
+--升级前准备
+declare
+  cnt int;
+begin
+  select count(*) into cnt from user_tables where table_name = 'TDICTDETAIL_UP';
+  if cnt > 0 then
+    execute immediate 'drop table TDICTDETAIL_UP cascade constraints purge';
+  end if;
+  select count(*) into cnt from user_tables where table_name = 'TDICTDETAIL2_UP';
+  if cnt > 0 then
+    execute immediate 'drop table TDICTDETAIL2_UP cascade constraints purge';
+  end if;
+  execute immediate 'create table TDICTDETAIL_UP as select a.* from tdictdetail a, tdictionary b where a.dict_id = b.dict_id and b.modify_flag = 1';
+  execute immediate 'create table TDICTDETAIL2_UP as select a.* from tdictdetail2 a, tdictionary b where a.dict_id = b.dict_id and b.modify_flag = 1';
+  execute immediate 'truncate table tdictionary';
+  execute immediate 'truncate table tdictdetail';
+  execute immediate 'truncate table tdictdetail2';
+end;
+/
+
+begin
+<params.dicts: { dict |
+  --<dict.dictId>: <dict.dictName>
+  insert into tdictionary(dict_id, dict_name, dict_id_type, code_length, modify_flag, inst_flag, cs_cache_flag) values(<dict.dictId>, '<dict.dictName>', 1, 0, 0, 0, 0);
+<dict.pairs: { pair |
+  insert into tdictdetail(dict_id, dict_key, dict_key_name, private_flag, reserve, update_time) values(<dict.dictId>, <pair.key>, '<pair.name>', 0, ' ', -1);}>
+}>
+  commit;
+end;
+/
+
+--升级后处理
+declare
+  cnt int;
+  current_time number;
+begin
+  for item in (select * from tdictdetail_up) loop
+    delete from tdictdetail where dict_id = item.dict_id and dict_key = item.dict_key;
+    insert  into tdictdetail(dict_id, dict_key, dict_key_name, private_flag, reserve, update_time)
+    values (item.dict_id, item.dict_key, item.dict_key_name, item.private_flag, item.reserve, item.update_time);
+  end loop;
+  for item in (select * from tdictdetail2_up) loop
+    delete from tdictdetail2 where dict_id = item.dict_id and dict_key2 = item.dict_key2;
+    insert  into tdictdetail2(dict_id, dict_key2, dict_key_name, private_flag, reserve, update_time)
+    values (item.dict_id, item.dict_key2, item.dict_key_name, item.private_flag, item.reserve, item.update_time);
+  end loop;
+  current_time := pg_basic_func.f_get_timestamp();
+  update tdictdetail set update_time = current_time where update_time \<= 0;
+  update tdictdetail2 set update_time = current_time where update_time \<= 0;
+  commit;
+  execute immediate 'drop table TDICTDETAIL_UP cascade constraints purge';
+  execute immediate 'drop table TDICTDETAIL2_UP cascade constraints purge';
+end;
+/
+>>

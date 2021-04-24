@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ArrayOfMDBTableGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MDBTableGroup Id="1" ChName="默认" EnName="defgroup" Remark="" />
+  <MDBTableGroup Id="100" ChName="基础-产品相关" EnName="base_product" />
+  <MDBTableGroup Id="101" ChName="基础-券商通道" EnName="base_broker" />
+  <MDBTableGroup Id="102" ChName="基础-人员和机构" EnName="base_operator_inst" />
+  <MDBTableGroup Id="103" ChName="基础-消息中心" EnName="base_message_center" />
+  <MDBTableGroup Id="104" ChName="基础-系统基础" EnName="base_system" />
+  <MDBTableGroup Id="105" ChName="基础-自定义报表" EnName="base_report" />
+  <MDBTableGroup Id="106" ChName="基础-证券市场" EnName="base_market" />
+  <MDBTableGroup Id="107" ChName="基础-费用设置" EnName="base_fee" />
+  <MDBTableGroup Id="200" ChName="风控-证券集合" EnName="risk_securities" />
+  <MDBTableGroup Id="201" ChName="风控-其他" EnName="risk_other" />
+  <MDBTableGroup Id="300" ChName="清算" EnName="clear" />
+  <MDBTableGroup Id="500" ChName="交易" EnName="trade" />
+  <MDBTableGroup Id="600" ChName="策略" EnName="strategy" />
+  <MDBTableGroup Id="800" ChName="报盘" EnName="report" />
+  <MDBTableGroup Id="1200" ChName="ETF发行端" EnName="etfmgr" />
+</ArrayOfMDBTableGroup>

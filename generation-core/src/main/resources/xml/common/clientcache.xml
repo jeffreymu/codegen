@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ArrayOfCCTable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CCTable Id="0" TableChname="数据字典表" LoadMode="全量分页" LoadTime="登录前" SubscribeUpdateMessage="false" FilterMode="无" Persistance="不持久化" ResourceName="" Remark="" />
+  <CCTable Id="0" TableChname="" LoadMode="全量分页" LoadTime="登录后" SubscribeUpdateMessage="false" FilterMode="无" Persistance="不持久化" ResourceName="" Remark="" />
+  <CCTable Id="0" TableChname="" LoadMode="全量分页" LoadTime="登录后" SubscribeUpdateMessage="false" FilterMode="无" Persistance="不持久化" ResourceName="" Remark="" />
+</ArrayOfCCTable>

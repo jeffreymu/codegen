@@ -1,0 +1,48 @@
+baseHxxFileTemplate(params)
+::= <<
+
+<params.hashKey>pragma once
+
+<params.hashKey>include \<tradecore/interface_tradecore.h>
+<params.hashKey>include \<intf/<params.serviceName>.pb.h>
+<params.hashKey>include \<string>
+<params.hashKey>include \<set>
+
+namespace longshare
+{
+	namespace mdbcom
+    {
+        class <params.serviceName>_base:public rx::tradecore::IService
+        {
+        public:
+            <params.serviceName>_base();
+            void Request(rx::tradecore::ITradeContext* context) override;
+            void Initialize(std::shared_ptr\<amqp::IMessage> in) override;
+            void GetLockKeys(rxmdb::mtablemgr* mdb, std::set\<int>* keys) override;
+        	rx::tradecore::lock_type GetLockType(rxmdb::mtablemgr* mdb) override;
+        	amqp::message_response_head InternalRequest(rx::tradecore::ITradeContext* context,const google::protobuf::Message& in, google::protobuf::Message& out) override;
+        	amqp::message_response_head GetResponseInfo(std::string& out_string) override;
+        	google::protobuf::Message& GetProtoIn() override;
+        	google::protobuf::Message& GetProtoOut() override;
+        	void Initialize(google::protobuf::Message& in) override;
+        	void LogRequest() override;
+        protected:
+        	invest::intf::trade::request_<params.serviceName> proto_in;
+        	std::shared_ptr\<amqp::IMessage> msg_in;
+        	invest::intf::trade::response_<params.serviceName> proto_out;
+        	amqp::message_response_head head;
+        	virtual void inner_request(rx::tradecore::ITradeContext* context) = 0;
+        	virtual void GetLockKeys(rxmdb_trade::mdb_trade* mdb,std::set\<int>* keys);
+        	virtual void CustomInParamCheck(){};
+        	virtual rx::tradecore::lock_type GetLockType(rxmdb_trade::mdb_trade* mdb);
+        private:
+            void AutoInParamCheck();
+        };
+        class <params.serviceName>_factory:public rx::tradecore::IServiceFactory
+        {
+        public:
+            rx::tradecore::IService* CreateService() override;
+        };
+	}
+}
+>>

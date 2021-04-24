@@ -1,0 +1,36 @@
+bizImplFileTemplate(params)
+::= <<
+
+<params.hashKey>include \<rxmdb_clear/mdb_<params.tableModuleName>_impl.h>
+<params.hashKey>include \<rxmdb_clear/mrtti_<params.tableModuleName>.h>
+
+using namespace rxmdb;
+
+namespace rxmdb_<params.tableModuleName> {
+
+mdb_<params.tableModuleName>_impl::mdb_<params.tableModuleName>_impl(std::string redo_filename):mdb_<params.tableModuleName>_impl(redo_filename, never)
+{
+}
+
+mdb_<params.tableModuleName>_impl::mdb_<params.tableModuleName>_impl(std::string redo_filename, fsync_type sync_type)
+{
+    this->_rtti = mrtti_<params.tableModuleName>();
+    // 添加表
+    <params.tables:{ t | this->add_table(&_<t.name>); <\n>}>
+
+    // 添加sequence
+    <params.seqs:{ s | this->add_sequence(<s.orderId>, "<s.name>", <s.start>, <s.flag1>, <s.flag2>); <\n>}>
+
+    // 开始初始化
+    this->init("<params.tableModuleName>", true, redo_filename, sync_type);
+}
+
+<params.tables:{ t | mt_<t.name> *mdb_<params.tableModuleName>_impl::<t.name>() { return &_<t.name>; \} <\n>}>
+
+} /* namespace rxmdb_<params.tableModuleName> */
+extern "C" rxmdb::mtablemgr* NewMdb(std::string redo_filename, fsync_type sync_type)
+{
+	return new rxmdb_<params.tableModuleName>::mdb_<params.tableModuleName>_impl(redo_filename, sync_type);
+}
+
+>>

@@ -1,0 +1,99 @@
+seqRecoveryTemplate(params)
+::= <<
+
+<params.hashKey>include \<invest_common/sequence_recovery.h>
+<params.hashKey>include \<rxmdb/mtablemgr.h>
+<params.hashKey>include \<invest_common/mdb_init_connection_pool.h>
+<params.hashKey>include \<rxcommon/log_helper.h>
+<params.hashKey>include \<string>
+<params.hashKey>include \<asf/asf_plugin_connection_pool/asf_plugin_connection_pool.h>
+<params.hashKey>include \<asf/asf_plugin_oci/ociconnection.h>
+using namespace std;
+namespace longshare {
+	namespace mdbcom {
+
+    void sequence_recovery::recovery(asf::iociconnection* oci_connection, rxmdb::mtablemgr* mdb)
+    {
+      std::int32_t seq_value = 0;
+      std::int32_t value = 0;
+      std::string sql = "";
+<params.sequences:{ seq |
+      LOGDEBUG("开始恢复序列<seq.name>")
+<seq.sqlPair: { sql |
+      sql = "<sql.oracleSql>" }>
+      value = get_value(oci_connection, sql);
+      seq_value = std::max(seq_value, value);
+<seq.pairs: { s |
+      value = get_maxvalue(oci_connection, "<s.recoveryName>", "<s.recoveryId>");
+      seq_value = std::max(seq_value, value);}>
+      mdb->seq_set_value("<seq.name>", std::max(seq_value, 1 - 1));
+      LOGDEBUG("恢复序列<seq.name>完成，恢复值为：\<\< seq_value");
+      seq_value = 0;
+      value = 0;<\n>}>
+
+    void sequence_recovery::recovery(asf::asf_plugin_connection_pool* connection_pool, rxmdb::mtablemgr* mdb, asf::database_type dbtype)
+	{
+      std::int32_t seq_value = 0;
+      std::int32_t value = 0;
+      std::string oracle_sql = "";
+      std::string mysql_sql = "";
+<params.sequences:{ seq |
+      LOGDEBUG("开始恢复序列<seq.name>")
+<seq.sqlPair: { sql |
+      oracle_sql = "<sql.oracleSql>"
+      mysql_sql = "<sql.mysqlSql>" }>
+      value = get_value(connection_pool, dbtype == asf::database_type::oracle ? oracle_sql : mysql_sql);
+      seq_value = std::max(seq_value, value);
+<seq.pairs: { s |
+      value = get_maxvalue(oci_connection, "<s.recoveryName>", "<s.recoveryId>");
+      seq_value = std::max(seq_value, value);}>
+      mdb->seq_set_value("<seq.name>", std::max(seq_value, 1 - 1));
+      LOGDEBUG("恢复序列<seq.name>完成，恢复值为：\<\< seq_value");
+      seq_value = 0;
+      value = 0; <\n>}>
+	}
+
+    std::int32_t sequence_recovery::get_maxvalue(asf::iociconnection* oci_connection, std::string table_name, std::string coloumn) const
+    {
+        std::string sql = "select nvl(max(to_number(" + coloumn + ")),0) as max_value from " + table_name;
+        ocilib::Resultset result = oci_connection->open(sql);
+        result++;
+        std::int32_t value = result.Get\<int>("max_value");
+        return value;
+    }
+
+    std::int32_t sequence_recovery::get_maxvalue(asf::asf_plugin_connection_pool* connection_pool, std::string table_name, std::string coloumn, asf::database_type dbtype) const
+    {
+        string sql = "";
+        if (dbtype == asf::database_type::oracle)
+        {
+            sql = "select nvl(max(to_number(" + coloumn + ")),0) as max_value from " + table_name;
+        }
+        else
+        {
+            sql = "select max(cast(" + coloumn + " as unsigned int)) as max_value  from " + table_name;
+        }
+        std::shared_ptr\<connection> conn = connection_pool->get_connection();
+        std::shared_ptr\<result_set>  result = conn->execute_query(sql.c_str());
+        result->next();
+        std::int32_t value = result->get_int32_by_name("max_value");
+        return value;
+    }
+
+    std::int32_t sequence_recovery::get_value(asf::iociconnection * oci_connection, std::string & sql)
+    {
+        ocilib::Resultset result = oci_connection->open(sql);
+        result++;
+        return result.Get\<int>(1);
+    }
+
+    std::int32_t sequence_recovery::get_value(asf::asf_plugin_connection_pool * connection_pool, std::string & sql)
+    {
+        std::shared_ptr\<connection> conn = connection_pool->get_connection();
+        std::shared_ptr\<result_set>  result = conn->execute_query(sql.c_str());
+        result->next();
+        return result->get_int32(1);
+    }
+}
+}
+>>

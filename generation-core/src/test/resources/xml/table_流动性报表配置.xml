@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Table xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Enname="tflowassetsetting" HasHistoryTable="false" NeedMakeScript="true" UpdatePushMode="不推送" CheckMode="无" Remark="">
+  <Fields>
+    <TableField FieldName="flow_asset_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="first_threshold" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="second_threshold" Remark="前十大10%" Nullable="false" ClientCached="false" />
+    <TableField FieldName="third_threshold" Remark="前十大50%" Nullable="false" ClientCached="false" />
+    <TableField FieldName="compare_direction" Remark="" Nullable="false" ClientCached="false" />
+  </Fields>
+  <Indexs>
+    <TableIndex Name="1" Useway="数据库" IndexType="唯一索引" FieldNames="flow_asset_type" Remark="" />
+    <TableIndex Name="2" Useway="数据库" IndexType="索引" FieldNames="foo_asset_type" Remark="" />
+  </Indexs>
+</Table>

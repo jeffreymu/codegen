@@ -1,0 +1,73 @@
+rttiImplFileTemplate(params)
+::= <<
+
+<params.hashKey>include \<rxmdb_<params.tableModuleName>/mdb_<params.tableModuleName>_impl.h>
+<params.hashKey>include \<boost/thread/mutex.hpp>
+<params.hashKey>include \<stddef.h>
+
+using namespace boost;
+using namespace rxmdb;
+
+const void init_mrtti_<params.tableModuleName>(mrtti_manager *r);
+
+mrtti_manager *mrtti = NULL;
+mutex mutex_mrtti;
+
+extern "C" const mrtti_manager *mrtti_<params.tableModuleName>()
+{
+	if (mrtti == NULL)
+	{
+		mutex::scoped_lock lock(mutex_mrtti);
+		if (mrtti == NULL)
+		{
+			mrtti_manager *r = new mrtti_manager();
+			init_mrtti_<params.tableModuleName>(r);
+			mrtti = r;
+			return r;
+		}
+		else
+		{
+			return mrtti;
+		}
+	}
+	else
+	{
+		return mrtti;
+	}
+}
+
+extern "C" const mrtti_manager * new_rtti()
+{
+	return mrtti_<params.tableModuleName>();
+}
+
+const void init_mrtti_<params.tableModuleName>(mrtti_manager *r)
+{
+<params.tables:{ t |
+<\t>// <t.name>
+<\t>r->register_table(<t.id>, <t.name>, <t.name>, <t.size>, <t.tableFlag>, <t.flag1>, <t.flag2>, <t.flag3>, "");
+<t.fields: { s | <\t>r->register_field(<s.id>, "<s.name>", <s.type>, <s.len>, <s.pos>); <\n>}>
+<t.indexes: { s | <\t>r->register_index(<s.tableId>, <s.id>, <s.flag>, "<s.fields>"); <\n>}>
+}>
+
+    //开始添加SEQUENCE信息
+    mrtti_sequence seq;
+<params.seqs:{ s |
+<\t>// sequence: <s.enName>
+<\t>seq.id = <s.id>;
+<\t>seq.enname = "<s.enName>";
+<\t>seq.chname = "<s.chName>";
+<\t>seq.init_value = <s.initValue>;
+<\t>seq.daily_reset = <s.dailyReset>;
+<\t>seq.oracle = <s.oracle>;
+<\t>seq.continuous = <s.continuous>;
+<\t>seq.mdb_list = "<s.mdbList>";
+<\t>seq.recovery_src = "<s.recoverySrc>";
+<\t>seq.recovery_sql_oracle = "<s.recoverySqlOracle>";
+<\t>seq.recovery_sql_mysql = "<s.recoverySqlMysql>";
+<\t>seq.remark = "<s.remark>";
+<\t>r->register_sequence(&seq);
+}>
+}
+
+>>

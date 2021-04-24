@@ -1,0 +1,165 @@
+mdbTableImplFileTemplate(params)
+::= <<
+
+<params.hashKey>include \<stdio.h>
+<params.hashKey>include \<stddef.h>
+<params.hashKey>include \<iostream>
+<params.hashKey>include \<boost/lexical_cast.hpp>
+<params.hashKey>include \<boost/timer/timer.hpp>
+<params.hashKey>include \<rxcommon/exception.h>
+<params.hashKey>include "rxmdb_etfmonitor/mt_<params.name>.h"
+<params.hashKey>include \<rxmdb_etfmonitor/mrtti_<params.tableModuleName>.h>
+
+using namespace std;
+using namespace boost::timer;
+using namespace rxmdb;
+
+namespace rxmdb_<params.tableModuleName>
+{
+
+mt_<params.name>::mt_<params.name>()
+{
+    //基本信息
+	this->init(mrtti_<params.tableModuleName>()->get_table(<params.tableId>));
+}
+
+bool mt_<params.name>::cmp(const mr_<params.name> *a, const mr_<params.name> *b)
+{
+return <params.pkIndexCmp>true;
+}
+
+bool mt_<params.name>::remove_by_key(<params.pkIndexArgs>mtransaction *m)
+{
+	mr_<params.name> record;
+	<params.pkIndexRecords:{ s | <s> <\n>}>
+	return mtablebase::remove(&record, m);
+}
+
+void mt_<params.name>::sort(std::vector\<const void *> *list)
+{
+    std::sort(list->begin(), list->end(), mt_<params.name>::cmp);
+}
+
+mindexlist *mt_<params.name>::create_indexs()	//待删除
+{
+	return nullptr;
+}
+
+void mt_<params.name>::init_indexs(rxmdb::mindexlist &v, bool partitional)
+{
+	if (partitional)
+	{
+		v.add_null_index();
+		v.add_null_index();
+		v.add_null_index();
+		v.add_null_index();
+	}
+	else
+	{
+	<params.indexes:{ s | v.add_index("<s.name>", <s.ispk>, 0, &mindex<s.no>_hash_func, &mindex<s.no>_cmp_func); <\n>}>
+	}
+}
+
+int mt_<params.name>::get_parition_key(const void *record) const
+{
+	THROWIF(record == NULL, "[get_parition_key] 传入了空指针。MDB表=<params.name>。");
+	return 0;
+}
+
+
+bool mt_<params.name>::is_diff_record(const void *r1, const void *r2) const
+{
+	auto p1 = (const mr_<params.name> *)r1;
+	auto p2 = (const mr_<params.name> *)r2;
+	return (
+	<params.diffRecords:{ s | <s> <\n>}>
+	);
+}
+
+void mt_<params.name>::before_insert(void *record, const mtransaction *t)
+{
+	//浮点字段四舍五入、空字符串自动填空格
+    <params.autoNumFills:{ s |
+FIX_ORACLE_NUMBER(((mr_<params.name> *)record)-><s.name>, <s.length>, <s.precision>);}>
+    <params.autoStrFills:{ s |
+FIX_EMPTY_STRING(((mr_<params.name> *)record)-><s.name>);}>
+    //没有refresh_date和refresh_time字段，不需要更新时间戳。
+}
+
+void mt_<params.name>::before_update(void *record, const mtransaction *t)
+{
+	//浮点字段四舍五入、空字符串自动填空格
+    <params.autoNumFills:{ s |
+FIX_ORACLE_NUMBER(((mr_<params.name> *)record)-><s.name>, <s.length>, <s.precision>);}>
+    <params.autoStrFills:{ s |
+FIX_EMPTY_STRING(((mr_<params.name> *)record)-><s.name>);}>
+    //没有refresh_date和refresh_time字段，不需要更新时间戳。
+}
+
+const mr_<params.name> *mt_<params.name>::get<params.pkIndexNo>(<params.pkIndexCorrectArgs>)
+{
+	mr_<params.name> record;
+	<params.pkIndexRecords:{ s | <s> <\n>}>
+	return (mr_<params.name> *)mtablebase::get_by_uindex(<params.pkIndexNo>, &record);
+}
+
+<params.queryIndexes:{ s |
+void mt_<s.tableName>::get<s.no>(vector\<const mr_<s.tableName> *> *list, <s.fieldArgs>)
+{
+	mr_<s.tableName> record;
+    <s.records: { ss | <ss>; <\n>}>
+    mtablebase::get_by_index(<s.no>, (const void *)&record, (std::vector\<const void*> *)list);
+\}
+
+int mt_<s.tableName>::get<s.no>_size(<s.fieldArgs>) const
+{
+    mr_<s.tableName> record;
+    <s.records: { ss | <ss>; <\n>}>
+    return mtablebase::get_size_by_index(<s.no>, &record);
+\}
+
+const mr_<s.tableName>* mt_<s.tableName>::get<s.no>_first(<s.fieldArgs>)
+{
+	mr_<s.tableName> record;
+    <s.records: { ss | <ss>; <\n>}>
+	vector\<const mr_<s.tableName>*> list;
+	mtablebase::get_by_index(<s.no>, (const void*)& record, (std::vector\<const void*>*)(&list));
+	return list.size() > 0 ? list[0] : nullptr;
+\}
+}>
+
+size_t mt_<params.name>::mindex<params.pkIndexNo>_hash_func(const void *a)
+{
+    size_t seed = 0;
+    mr_<params.name> *p = (mr_<params.name> *)a;
+	<params.pkHashFuncs.records:{ s | <s> <\n>}>
+    return seed;
+}
+
+bool mt_<params.name>::mindex<params.pkIndexNo>_cmp_func(const void *a, const void *b)
+{
+    mr_<params.name> *p1 = (mr_<params.name> *)a;
+    mr_<params.name> *p2 = (mr_<params.name> *)b;
+    return <params.pkIndexCmp>true;
+}
+
+<params.hashFuncs:{ s |
+size_t mt_<params.name>::mindex<s.no>_hash_func(const void *a)
+{
+    size_t seed = 0;
+    mr_<params.name> *p = (mr_<params.name> *)a;
+	<s.records:{ s | <s> <\n>}>
+    return seed;
+\}
+}>
+<params.cmpFuncs:{ s |
+bool mt_<params.name>::mindex<s.no>_cmp_func(const void *a, const void *b)
+{
+    mr_<params.name> *p1 = (mr_<params.name> *)a;
+    mr_<params.name> *p2 = (mr_<params.name> *)b;
+    return <s.fieldExpression>true;
+\}
+}>
+
+} /*namespace rxmdb_<params.tableModuleName>*/
+>>

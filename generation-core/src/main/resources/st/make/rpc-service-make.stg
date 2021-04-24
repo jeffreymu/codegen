@@ -1,0 +1,9 @@
+makeFileTemplate(params)
+::= <<
+
+BUILD_NAME=<params.moduleName>
+COMPILE_PARAM=-std=c++11
+BUILD_PARAM=-linvest_intf -lamqp2 -lprotobuf -lrxcommon -locilib -lasf_plugin_session_manage
+#============do not changed below================
+include $(RXHOME)/sbin/env/makefile_tail_so
+>>

@@ -1,0 +1,22 @@
+writeHxxFileTemplate(params)
+::= <<
+
+<params.hashKey>pragma once
+
+<params.hashKey>include "autogen_<params.serviceName>_service.h"
+<params.hashKey>include \<intf/<params.serviceName>.pb.h>
+<params.hashKey>include \<string>
+<params.hashKey>include \<set>
+
+namespace longshare
+{
+	namespace mdbcom
+    {
+        class <params.serviceName> :public <params.serviceName>_base
+        {
+        protected:
+          void inner_request(rx::tradecore::ITradeContext* context) override;
+        };
+	}
+}
+>>

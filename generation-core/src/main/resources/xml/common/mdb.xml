@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ArrayOfMDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MDB Name="trade" WriteRedo="true" SubsystemId="2" Remark="" />
+  <MDB Name="algo" WriteRedo="true" SubsystemId="7" Remark="" />
+  <MDB Name="trans" WriteRedo="true" SubsystemId="4" Remark="" />
+  <MDB Name="clear" WriteRedo="true" SubsystemId="3" Remark="" />
+  <MDB Name="lemon" WriteRedo="true" SubsystemId="14" Remark="" />
+  <MDB Name="etfmonitor" WriteRedo="true" SubsystemId="17" Remark="" />
+  <MDB Name="etl" WriteRedo="true" SubsystemId="20" Remark="" />
+</ArrayOfMDB>

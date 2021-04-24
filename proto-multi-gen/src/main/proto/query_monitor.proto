@@ -1,0 +1,21 @@
+package invest.intf.etfmonitor;
+
+message request_query_etf_volume_p1 {
+}
+message response_query_etf_volume_p1 {
+  optional string etf_securitycode2 = 1; //ETF产品二级市场代码
+  optional int32 mkt_id = 2; //市场序号
+  optional double creation_share = 3; //申购份额
+  optional double redemption_share = 4; //赎回份额
+  optional double mkt_deal_qty = 5; //市场成交数量
+}
+
+
+message request_query_etf_volume {
+    repeated request_query_etf_volume_p1 list1 = 1;
+}
+
+
+message response_query_etf_volume {
+    repeated response_query_etf_volume_p1 list1 = 1;
+}

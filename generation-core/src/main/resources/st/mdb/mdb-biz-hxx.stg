@@ -1,0 +1,35 @@
+heardFileTemplate(params)
+::= <<
+
+<params.hashKey>ifndef MDB_<params.upperTableModuleName>_H_
+<params.hashKey>define MDB_<params.upperTableModuleName>_H_
+
+<params.hashKey>include \<rxmdb/mtablemgr.h>
+<params.hashKey>include "mtableenum_<params.tableModuleName>.h"
+<params.hashKey>include \<string>
+<params.hashKey>include \<vector>
+<params.hashKey>include "rxmdb/mtablebase.h"
+<params.hashKey>include "rxmdb/mtable.h"
+<params.hashKey>include "rxmdb/mindexlist.h"
+
+using namespace std;
+using namespace rxmdb;
+
+namespace rxmdb_<params.tableModuleName> {
+
+<params.tables:{ e |
+class mt_<e.name>;
+typedef struct s_mr_<e.name> mr_<e.name>;
+}>
+
+class mdb_<params.tableModuleName> : public mtablemgr
+{
+public:
+<params.tables:{ e | <\t>virtual mt_<e.name> *<e.name>() = 0; <\n>}>
+};
+
+} /* namespace rxmdb_<params.tableModuleName> */
+
+extern "C" rxmdb::mtablemgr* NewMdb(std::string redo_filename, fsync_type sync_type);
+<params.hashKey>endif /* MDB_<params.tableModuleName>_H_ */
+>>

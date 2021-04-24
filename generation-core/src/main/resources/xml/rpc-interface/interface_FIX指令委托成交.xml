@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="gb2312"?>
+<ServiceInterface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Summary>
+    <Name>fix_ins_order_deal</Name>
+    <Desciption>FIX指令委托成交、内部调用委托成交
+
+成交的时候根据 外部系统申报号
+
+结果集2 交易所协议回购时传入</Desciption>
+    <ServiceType>内存服务</ServiceType>
+    <UseMdb>trade</UseMdb>
+    <GenMdbServiceAlso>false</GenMdbServiceAlso>
+    <GenMdbPagedService>false</GenMdbPagedService>
+    <MDBLockType>单元锁</MDBLockType>
+    <MDBLockKeys />
+    <LoadType>单元权限</LoadType>
+    <Table />
+    <FTable />
+    <ForeignKeys />
+    <HandWrite>false</HandWrite>
+    <InterfaceMD5>f9af2e6b815241eb61b22f17296ba370</InterfaceMD5>
+    <GenJavaCallerCode>false</GenJavaCallerCode>
+    <IsThirdParty>false</IsThirdParty>
+    <IsClient>false</IsClient>
+    <JavaControllerType>不生成微服务</JavaControllerType>
+    <IntfLogMode>全部</IntfLogMode>
+  </Summary>
+  <InParams>
+    <IntfParam IsDefault="false" Name="request_fix_ins_order_deal_p1" IsRepeat="false" Desciption="" IsTableRelation="false" RelationTable="">
+      <ParamFields>
+        <IntfParamField Name="ins_sec_id" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="external_insid" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="external_order_id" IsNeedEdit="false" Remark="暂时不用" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="deal_qty" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="deal_price" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="deal_id" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="deal_time" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="external_report_serial_id" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="external_deal_id" IsNeedEdit="false" Remark="所有业务都有-大宗业务交收关联使用（大宗固收业务）" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="external_orig_deal_id" IsNeedEdit="false" Remark="所有业务都有-非空表示成交回溯（大宗固收业务）" CheckWay="" CheckRange="" CheckExtendRange="" />
+      </ParamFields>
+    </IntfParam>
+    <IntfParam IsDefault="false" Name="request_fix_ins_order_deal_p2" IsRepeat="false" Desciption="" IsTableRelation="false" RelationTable="">
+      <ParamFields>
+        <IntfParamField Name="ins_sec_id" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="security_code" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="mkt_id" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="mortgage_qty" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="mortgage_rate" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="invest_type" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="combi_code" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+      </ParamFields>
+    </IntfParam>
+  </InParams>
+  <OutParams>
+    <IntfParam IsDefault="false" Name="response_fix_ins_order_deal_p1" IsRepeat="false" Desciption="" IsTableRelation="false" RelationTable="">
+      <ParamFields>
+        <IntfParamField Name="ins_sec_id" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="biz_errorid" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="biz_errorinfo" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+      </ParamFields>
+    </IntfParam>
+  </OutParams>
+</ServiceInterface>

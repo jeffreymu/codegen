@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ArrayOfDictGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DictGroup Name="创金合信" StartNumber="800000" EndNumber="800999" Remark="用于合作开发客户自己创建数据字典" />
+  <DictGroup Name="华泰证券" StartNumber="801000" EndNumber="801999" />
+  <DictGroup Name="国泰君安" StartNumber="802000" EndNumber="802999" />
+</ArrayOfDictGroup>

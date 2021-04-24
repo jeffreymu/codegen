@@ -1,0 +1,32 @@
+bizHeaderFileTemplate(params)
+::= <<
+
+<params.hashKey>ifndef MDB_<params.upperTableModuleName>_IMPL_H_
+<params.hashKey>define MDB_<params.upperTableModuleName>_IMPL_H_
+
+<params.hashKey>include \<rxmdb/mtablemgr.h>
+<params.hashKey>include "mtableenum_<params.tableModuleName>.h"
+<params.hashKey>include "mdb_<params.tableModuleName>.h"
+
+<params.tables:{ e |
+<params.hashKey>include "mt_<e.name>.h"
+}>
+
+using namespace rxmdb;
+
+namespace rxmdb_<params.tableModuleName> {
+
+class mdb_<params.tableModuleName>_impl : public mdb_<params.tableModuleName>
+{
+private:
+<params.tables:{ e | <\t>mt_<e.name> _<e.name>; <\n>}>
+public:
+    mdb_clear_impl(std::string redo_filename = "redo_<params.tableModuleName>.dat" );
+    mdb_clear_impl(std::string redo_filename, fsync_type sync_type);
+<params.tables:{ e | <\t>mt_<e.name> *<e.name>() override; <\n>}>
+};
+
+} /* namespace rxmdb_<params.tableModuleName> */
+
+<params.hashKey>endif /* MDB_<params.tableModuleName>_H_ */
+>>

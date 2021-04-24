@@ -1,0 +1,139 @@
+baseCxxFileTemplate(params)
+::= <<
+
+<params.hashKey>include "autogen_<params.serviceName>_service.h"
+<params.hashKey>include "write_<params.serviceName>_service.h"
+<params.hashKey>include \<string>
+<params.hashKey>include \<sstream>
+<params.hashKey>include \<google/protobuf/text_format.h>
+<params.hashKey>include \<rxcommon/log_helper.h>
+
+longshare::mdbcom::<params.serviceName>_base::<params.serviceName>_base(): msg_in(nullptr)
+{
+	this->_loglevel = log_sw::get("service.<params.serviceName>", "service");
+}
+
+void longshare::mdbcom::<params.serviceName>_base::Request(rx::tradecore::ITradeContext* context)
+{
+	LogRequest();
+	AutoInParamCheck();
+	CustomInParamCheck();
+	inner_request(context);
+
+	BIZTHROWIF(context->mtransaction()->stage() == mtransaction_stage::END, -1,"请勿在业务服务中直接操作事务,出现此错误请直接联系对应开发人员.","");
+}
+
+void longshare::mdbcom::<params.serviceName>_base::LogRequest()
+{
+	if (this->_loglevel->get_level() >= 2)
+	{
+		google::protobuf::TextFormat::Printer printer;
+		printer.SetSingleLineMode(true);
+		printer.SetUseUtf8StringEscaping(true);
+		std::string value;
+		printer.PrintToString(proto_in, &value);
+	}
+}
+
+void longshare::mdbcom::<params.serviceName>_base::Initialize(std::shared_ptr\<amqp::IMessage> in)
+{
+	msg_in = in;
+	LSTRY
+	{
+		proto_in.ParseFromString(std::string(msg_in->getContent(), msg_in->getContentSize()));
+	}
+	LSCATCH
+	{
+		stringstream ss;
+		ss \<\< "<params.serviceName>解包异常,请检查前后台版本是否一致,详细错误信息:" \<\< ex.what();
+		throw runtime_error(ss.str());
+	}
+}
+
+void longshare::mdbcom::<params.serviceName>_base::AutoInParamCheck()
+{
+
+}
+
+void longshare::mdbcom::<params.serviceName>_base::GetLockKeys(rxmdb::mtablemgr* mdb, std::set\<int>* keys)
+{
+	auto m = dynamic_cast\<rxmdb_etfmonitor::mdb_etfmonitor*>(mdb);
+	BIZTHROWIF(!m, -1, "内部错误，当前没有名为etfmonitor的内存数据库，请检查。","");
+	GetLockKeys(m, keys);
+}
+
+
+void longshare::mdbcom::<params.serviceName>_base::GetLockKeys(rxmdb_etfmonitor::mdb_etfmonitor* mdb,std::set\<int>* keys)
+{
+	keys->insert(-1);
+
+}
+
+rx::tradecore::lock_type longshare::mdbcom::<params.serviceName>_base::GetLockType(rxmdb::mtablemgr* mdb)
+{
+	auto m = dynamic_cast\<rxmdb_etfmonitor::mdb_etfmonitor*>(mdb);
+	BIZTHROWIF(!m, -1, "内部错误，当前没有名为etfmonitor的内存数据库，请检查。","");
+	return GetLockType(m);
+}
+
+rx::tradecore::lock_type longshare::mdbcom::<params.serviceName>_base::GetLockType(rxmdb_etfmonitor::mdb_etfmonitor* mdb)
+{
+	return rx::tradecore::global_service;
+}
+
+amqp::message_response_head longshare::mdbcom::<params.serviceName>_base::InternalRequest(rx::tradecore::ITradeContext* context, const google::protobuf::Message& in, google::protobuf::Message& out)
+{
+	LSTRY
+	{
+		//构造一个假的AMQPMessage
+		msg_in = std::shared_ptr\<amqp::IMessage>(NewAmqpMessagae());
+		proto_in.CopyFrom(in);
+		AutoInParamCheck();
+		CustomInParamCheck();
+		inner_request(context);
+	}
+	LSCATCH
+	{
+		head.error_id = ex.error_code();
+		head.error_msg = ex.display_msg();
+		head.debug_msg = ex.debug_msg();
+	}
+	out.CopyFrom(proto_out);
+	return head;
+}
+
+amqp::message_response_head longshare::mdbcom::<params.serviceName>_base::GetResponseInfo(std::string& out_string)
+{
+	if (this->_loglevel->get_level() >= 2)
+	{
+		google::protobuf::TextFormat::Printer printer;
+		printer.SetSingleLineMode(true);
+		printer.SetUseUtf8StringEscaping(true);
+		std::string value;
+		printer.PrintToString(proto_out, &value);
+	}
+	proto_out.SerializeToString(&out_string);
+	return head;
+}
+
+google::protobuf::Message& longshare::mdbcom::<params.serviceName>_base::GetProtoIn()
+{
+	return proto_in;
+}
+
+google::protobuf::Message& longshare::mdbcom::<params.serviceName>_base::GetProtoOut()
+{
+	return proto_out;
+}
+
+void longshare::mdbcom::<params.serviceName>_base::Initialize(google::protobuf::Message& in)
+{
+	proto_in.CopyFrom(in);
+}
+
+rx::tradecore::IService* longshare::mdbcom::<params.serviceName>_factory::CreateService()
+{
+	return new longshare::mdbcom::<params.serviceName>();
+}
+
+>>

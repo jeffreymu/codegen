@@ -1,0 +1,24 @@
+dictTemplate(params)
+::= <<
+
+<params.hashKey>ifndef RXCOMMON_BIZ_DICTIONARY_<params.upperName>_H_
+<params.hashKey>define RXCOMMON_BIZ_DICTIONARY_<params.upperName>_H_
+
+//----------------------
+//<params.cnName>
+//----------------------
+namespace <params.namespaceLevel1> {
+namespace <params.namespaceLevel2> {
+namespace <params.namespaceLevel3> {
+
+  enum <params.name> {
+    <params.enums:{ e | <e.enumValue> = <e.orderNo>, //<e.description><\n>}>
+    <params.lastEnum:{ e | <e.enumValue> = <e.orderNo> //<e.description>}>
+  };
+
+} /* namespace <params.namespaceLevel3> */
+} /* namespace <params.namespaceLevel2> */
+} /* namespace <params.namespaceLevel1> */
+
+<params.hashKey>endif /* RXCOMMON_BIZ_DICTIONARY_H_ */
+>>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="BasicData" type="BasicDataType"/>
+  <xs:complexType name="tetfmsysparamType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="id"/>
+      <xs:element name="param_value">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="300"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="{&quot;ip&quot;:&quot;127.0.0.1&quot;,&quot;port&quot;:&quot;1521&quot;,&quot;user_name&quot;:&quot;user&quot;,&quot;password&quot;:&quot;1&quot;,&quot;service&quot;:&quot;sid&quot;,&quot;exec_user&quot;:&quot;&quot;}"/>
+            <xs:enumeration value="{&quot;ip&quot;:&quot;smtp.qq.com&quot;,&quot;port&quot;:&quot;25&quot;,&quot;addr&quot;:&quot;****@**.com&quot;,&quot;user&quot;:&quot;****@**.com&quot;,&quot;pwd&quot;:&quot;******&quot;}"/>
+            <xs:enumeration value="{&quot;host&quot;: &quot;http://127.0.0.0:8888&quot;,&quot;user&quot;: &quot;admin&quot;,&quot;pwd&quot;: &quot;1&quot;}"/>
+            <xs:enumeration value="20"/>
+            <xs:enumeration value="10"/>
+            <xs:enumeration value="{&quot;enable&quot;: &quot;0&quot;,&quot;filepath&quot;: &quot;综合信息查询-单元资产查询结果.xls&quot;}"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="remark"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentElementType">
+    <xs:sequence>
+      <xs:element type="tetfmsysparamType" name="tetfmsysparam" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DataXmlType">
+    <xs:sequence>
+      <xs:element type="DocumentElementType" name="DocumentElement"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BasicDataType">
+    <xs:sequence>
+      <xs:element type="DataXmlType" name="DataXml"/>
+      <xs:element type="xs:string" name="Remark"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="RelationTableName"/>
+    <xs:attribute type="xs:string" name="UpdateMode"/>
+    <xs:attribute type="xs:string" name="MakeClentDataFile"/>
+    <xs:attribute type="xs:string" name="BindDict"/>
+    <xs:attribute type="xs:string" name="BindDictId"/>
+    <xs:attribute type="xs:string" name="BindFieldForDictItemId"/>
+    <xs:attribute type="xs:string" name="BindFieldForDictItemChName"/>
+    <xs:attribute type="xs:string" name="BindFieldForDictItemEnName"/>
+  </xs:complexType>
+</xs:schema>

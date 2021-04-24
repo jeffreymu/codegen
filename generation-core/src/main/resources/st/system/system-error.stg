@@ -1,0 +1,18 @@
+errorTemplate(errors)
+::= <<
+
+//this is auto-generation code
+<errors.hashKey>pragma once
+<errors.hashKey>include \<rxcommon/exception.h>
+
+namespace <errors.sysNamespace> {
+
+<errors.errors:{ e |
+//<e.errorId>-<e.description>
+const int <e.errorName> = <e.errorId>;
+#define THROW_<e.errorName>(DISPLAY_STREAM, DEBUG_STREAM) BIZTHROW(bizerror_id::<e.errorName>, "<e.description>。 (" \<\< DISPLAY_STREAM \<\< ")", "<e.description>。 (" \<\< DEBUG_STREAM \<\< ")")
+#define THROWIF_<e.errorName>(CONDITION, DISPLAY_STREAM, DEBUG_STREAM) if (CONDITION) THROW_<e.errorName>(DISPLAY_STREAM, DEBUG_STREAM)
+}>
+
+}/* namespace <errors.sysNamespace> */
+>>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ArrayOfStdfield" type="ArrayOfStdfieldType"/>
+  <xs:complexType name="ArrayOfStdfieldType">
+    <xs:sequence>
+      <xs:element type="StdfieldType" name="Stdfield" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StdfieldType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="EnName" use="optional"/>
+        <xs:attribute type="xs:string" name="ChName" use="optional"/>
+        <xs:attribute type="xs:string" name="StdTypeName" use="optional"/>
+        <xs:attribute type="xs:string" name="DictId" use="optional"/>
+        <xs:attribute type="xs:string" name="Remark" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

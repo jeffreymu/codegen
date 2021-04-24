@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Table" type="TableType"/>
+  <xs:complexType name="TableType">
+    <xs:sequence>
+      <xs:element type="FieldsType" name="Fields"/>
+      <xs:element type="IndexsType" name="Indexs"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="Enname"/>
+    <xs:attribute type="xs:string" name="HasHistoryTable"/>
+    <xs:attribute type="xs:string" name="NeedMakeScript"/>
+    <xs:attribute type="xs:string" name="UpdatePushMode"/>
+    <xs:attribute type="xs:string" name="CheckMode"/>
+    <xs:attribute type="xs:string" name="Remark"/>
+  </xs:complexType>
+  <xs:complexType name="TableFieldType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="FieldName" use="optional"/>
+        <xs:attribute type="xs:string" name="Remark" use="optional"/>
+        <xs:attribute type="xs:string" name="Nullable" use="optional"/>
+        <xs:attribute type="xs:string" name="ClientCached" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FieldsType">
+    <xs:sequence>
+      <xs:element type="TableFieldType" name="TableField" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TableIndexType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="Name" use="optional"/>
+        <xs:attribute type="xs:string" name="Useway" use="optional"/>
+        <xs:attribute type="xs:string" name="IndexType" use="optional"/>
+        <xs:attribute type="xs:string" name="FieldNames" use="optional"/>
+        <xs:attribute type="xs:string" name="Remark" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="IndexsType">
+    <xs:sequence>
+      <xs:element type="TableIndexType" name="TableIndex" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

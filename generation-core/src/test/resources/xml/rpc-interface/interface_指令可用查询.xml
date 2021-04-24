@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="gb2312"?>
+<ServiceInterface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Summary>
+    <Name>ins_available_qry</Name>
+    <Desciption>第一层接口 (接口支持批量)
+
+处理逻辑	
+	单元资产表,获取current_cash
+	调可用插件获取银行间T+0可用,T+0可用(不包含T+1变化)
+	调可用插件获取银行间T+1可用
+	调可用插件获取沪港股通可用(判断单元是否开通港股通,对于非港股通单元返回0)
+	调可用插件获取深港股通可用(判断单元是否开通港股通,对于非港股通单元返回0)</Desciption>
+    <ServiceType>内存服务</ServiceType>
+    <UseMdb>trade</UseMdb>
+    <GenMdbServiceAlso>false</GenMdbServiceAlso>
+    <GenMdbPagedService>false</GenMdbPagedService>
+    <MDBLockType>只读不加锁</MDBLockType>
+    <MDBLockKeys />
+    <LoadType>单元权限</LoadType>
+    <Table />
+    <FTable />
+    <ForeignKeys />
+    <HandWrite>false</HandWrite>
+    <InterfaceMD5 />
+    <GenJavaCallerCode>true</GenJavaCallerCode>
+    <IsThirdParty>false</IsThirdParty>
+    <IsClient>true</IsClient>
+    <JavaControllerType>生成POST微服务</JavaControllerType>
+    <IntfLogMode>全部</IntfLogMode>
+  </Summary>
+  <InParams>
+    <IntfParam IsDefault="false" Name="request_ins_available_qry_p1" IsRepeat="false" Desciption="" IsTableRelation="false" RelationTable="">
+      <ParamFields>
+        <IntfParamField Name="unit_id" IsNeedEdit="true" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="aa" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+      </ParamFields>
+    </IntfParam>
+  </InParams>
+  <OutParams>
+    <IntfParam IsDefault="false" Name="response_ins_available_qry_p1" IsRepeat="false" Desciption="" IsTableRelation="false" RelationTable="">
+      <ParamFields>
+        <IntfParamField Name="unit_id" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="current_cash" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="ins_t0_available_amt" IsNeedEdit="false" Remark="银行间T+0可用" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="ins_t1_available_amt" IsNeedEdit="false" Remark="银行间,交易所T+1可用" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="t0_direct_available_amt" IsNeedEdit="false" Remark="银行间T+0可用(不含T+1)" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="sh_hk_available_amt" IsNeedEdit="false" Remark="未开通港股通单元返回-1" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="sz_hk_available_amt" IsNeedEdit="false" Remark="未开通港股通单元返回-1" CheckWay="" CheckRange="" CheckExtendRange="" />
+      </ParamFields>
+    </IntfParam>
+  </OutParams>
+</ServiceInterface>

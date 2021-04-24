@@ -1,0 +1,34 @@
+hisTableTemplate(params)
+::= <<
+
+<! 数据库表结构定义 !>
+prompt 正在执行 创建历史表 <params.hisName>
+
+declare v_count int;
+begin
+  select count(*) into v_count from user_tables where table_name = UPPER('<params.hisShadowName>');
+  if v_count > 0
+  then execute immediate 'drop table <params.hisShadowName> cascade constraints purge';
+  end if;
+end;
+/
+
+create table <params.hisShadowName>
+(
+  <params.fields:{f | <f.name> <f.type>(<f.length><if(f.precision)>,<f.precision><endif>) default <f.defaultValue> <f.nullable>,<\n>}>
+  <params.lastField:{lf | <lf.name> <lf.type>(<lf.length><if(lf.precision)>,<lf.precision><endif>) default <lf.defaultValue> <lf.nullable>}>
+);
+
+declare
+  table_id varchar(4000);
+begin
+  select to_char(a.object_id) into table_id from user_objects a where a.object_name = upper('<params.hisShadowName>');
+  --开始建索引
+  execute immediate 'alter table <params.hisShadowName> add constraint pk_'||table_id||' primary key(<params.pkIndex.fieldName>)';
+  <params.indexes:{f | execute immediate 'create index idx_'||table_id||'_<f.indexName> on <params.hisShadowName>(<f.fieldName>)';<\n>}>
+end;
+/
+
+begin upgrade_table('<params.hisName>', '<params.hisShadowName>'); end;
+/
+>>

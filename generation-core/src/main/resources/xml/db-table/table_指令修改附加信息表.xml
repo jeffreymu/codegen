@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<Table xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Enname="tinsextramodify" HasHistoryTable="true" NeedMakeScript="true" UpdatePushMode="从MDB推送" CheckMode="无" Remark="">
+  <Fields>
+    <TableField FieldName="ins_op_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="ins_sec_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="ins_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="inst_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="product_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="unit_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="combi_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="otins_stage" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="deposit_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="deposit_amt" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="deposit_rate" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="bank_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="bank_account_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="calc_rate_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="interest_pay_freq" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="contract_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="expire_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="value_date" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="pay_purchase_date" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="deposit_limit_time" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="withdraw_limit" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="withdraw_direction" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="deposit_no" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="cur_change_interest" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="expire_date" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="deposit_id" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="bonus_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="hugeredeem_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="term_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="withdraw_date" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="settlement_date" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="interest_rate_type" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="ins_price2" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="ins_price3" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="ins_amt2" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="ins_amt3" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="inquiry_time" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="inquiry_date" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="lock_in" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="used_margin" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="bank_branch" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="earnest_rate" Remark="目前由公开增发网下申购使用" Nullable="false" ClientCached="false" />
+    <TableField FieldName="apply_conf_price" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="advance_rate" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="advance_date" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="deposit_linkman" Remark="" Nullable="false" ClientCached="false" />
+    <TableField FieldName="bid_mode" Remark="" Nullable="false" ClientCached="false" />
+  </Fields>
+  <Indexs>
+    <TableIndex Name="0" Useway="数据库" IndexType="主键索引" FieldNames="ins_op_id" Remark="" />
+    <TableIndex Name="1" Useway="MDB" IndexType="非唯一索引" FieldNames="inst_id, combi_id" Remark="" />
+  </Indexs>
+</Table>

@@ -1,0 +1,12 @@
+mrttiTemplate(params)
+::= <<
+
+<params.hashKey>ifndef MRTTI_<params.upperModule>_H_
+<params.hashKey>define MRTTI_<params.upperModule>_H_
+
+<params.hashKey>include \<rxmdb/mrtti.h>
+
+extern "C" const rxmdb::mrtti_manager *mrtti_<params.module>();
+
+<params.hashKey>endif /* MRTTI_<params.upperModule>_H_ */
+>>

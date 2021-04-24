@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: open-gateway
+  cloud:
+    config:
+      profile: development
+      uri: http://cjhxConfig:5100

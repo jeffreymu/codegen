@@ -1,0 +1,21 @@
+enumTemplate(params)
+::= <<
+
+/*
+* mtableenum.h
+*
+*  Created on: <params.createDate>
+*      Author: CJHX
+*/
+
+<params.hashKey>ifndef MTABLEENUM_<params.upperTableModuleName>_H_
+<params.hashKey>define MTABLEENUM_<params.upperTableModuleName>_H_
+
+namespace rxmdb_<params.tableModuleName> {
+  enum table_enum_<params.tableModuleName> {
+    <params.enums:{ e | <e.attribute> = <e.number>, <\n>}>
+    <params.lastEnum:{ e | <e.attribute> = <e.number> }>
+  };
+}
+<params.hashKey>endif
+>>

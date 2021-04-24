@@ -1,0 +1,27 @@
+protoTemplate(params)
+::= <<
+package <params.packageName>;
+
+<params.messages: { msg |
+message <msg.name> {
+<msg.structs: { struct |
+  optional <struct.type> <struct.name> = <struct.orderNo>; //<struct.comment>}>
+\}
+}>
+
+<! 服务接口请求参数结构定义 !>
+<params.interfaces: { int |
+message request_<int.interfaceName> {
+  <int.requestList: { request |
+  repeated <request.type> <request.name> = <request.orderNo>;}>
+\}
+}>
+
+<! 服务接口响应结构定义 !>
+<params.interfaces: { int |
+message response_<int.interfaceName> {
+  <int.responseList: { response |
+  repeated <response.type> <response.name> = <response.orderNo>;}>
+\}
+}>
+>>

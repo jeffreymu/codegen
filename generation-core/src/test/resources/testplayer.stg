@@ -1,0 +1,28 @@
+sqlTemplate(parms)
+::= <<
+<!-- comments 说明 -->
+type Beef struct {
+<parms:{ parm |<parm.name> <\t> <parm.type> <\t> `json:"<parm.namejson>"` <\n>}>
+}
+>>
+
+sqlTemplate2(parms2)
+::= <<
+
+#include \<cstring>
+#include \<cstdio>
+#include "github.com/foo/F.hxx"
+class CMyString {
+
+type SlicedBeef struct {
+<parms2:{ parm |<parm.name> <\t> <parm.type> <\t> `json:"<parm.namejson>"` <\n>}>
+}
+
+}
+
+CMyString::~CMyString()
+{
+}
+
+}
+>>

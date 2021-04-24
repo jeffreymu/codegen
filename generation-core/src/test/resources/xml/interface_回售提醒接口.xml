@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="gb2312"?>
+<ServiceInterface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Summary>
+    <Name>p_qry_sellback_reminder</Name>
+    <Desciption />
+    <ServiceType>手写服务</ServiceType>
+    <UseMdb>trade</UseMdb>
+    <GenMdbServiceAlso>false</GenMdbServiceAlso>
+    <GenMdbPagedService>false</GenMdbPagedService>
+    <MDBLockType>单元锁</MDBLockType>
+    <MDBLockKeys />
+    <LoadType>单元权限</LoadType>
+    <Table />
+    <FTable />
+    <ForeignKeys />
+    <HandWrite>false</HandWrite>
+    <InterfaceMD5 />
+    <GenJavaCallerCode>false</GenJavaCallerCode>
+    <IsThirdParty>false</IsThirdParty>
+    <IsClient>true</IsClient>
+    <JavaControllerType>不生成微服务</JavaControllerType>
+    <IntfLogMode>全部</IntfLogMode>
+  </Summary>
+  <InParams>
+    <IntfParam IsDefault="false" Name="request_p_qry_sellback_reminder_p1" IsRepeat="false" Desciption="" IsTableRelation="false" RelationTable="">
+      <ParamFields>
+        <IntfParamField Name="product_id_list" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+      </ParamFields>
+    </IntfParam>
+  </InParams>
+  <OutParams>
+    <IntfParam IsDefault="false" Name="response_p_qry_sellback_reminder_p1" IsRepeat="false" Desciption="" IsTableRelation="false" RelationTable="">
+      <ParamFields>
+        <IntfParamField Name="security_code" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="security_name" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="net_cost" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="record_date" IsNeedEdit="false" Remark="开始日期" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="exercise_date" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+        <IntfParamField Name="end_date" IsNeedEdit="false" Remark="" CheckWay="" CheckRange="" CheckExtendRange="" />
+      </ParamFields>
+    </IntfParam>
+  </OutParams>
+</ServiceInterface>

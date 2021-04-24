@@ -1,0 +1,15 @@
+initDataTemplate(params)
+::= <<
+--初始化数据
+declare
+  v_count number;
+begin
+<params.configParams: { param |
+  select count(*) into v_count from <params.tableName> where id = <param.id>;
+  if (v_count = 0) then
+    insert into <params.tableName> (id, param_value, remark) values (<param.id>, '<param.value>', '<param.name>');
+  end if;}>
+  commit;
+end;
+/
+>>

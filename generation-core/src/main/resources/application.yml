@@ -1,0 +1,24 @@
+server.port: 9999
+spring:
+  application:
+    name: auto-generation
+  profiles:
+    active: development
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7070/eureka/
+
+## logging
+logging.level.com.cjhxfund.autocode: INFO
+
+## WestLake installation path
+westlake:
+  installation:
+    path: E:\研发管理工具
+  code:
+    path: E:\研发管理工具\mycode
+  proto:
+    shadow:  E:\workspace\code-generation
+

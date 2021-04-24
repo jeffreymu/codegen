@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<BasicData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" RelationTableName="tetfmsysparam" UpdateMode="增量" MakeClentDataFile="false" BindDict="false" BindDictId="0" BindFieldForDictItemId="" BindFieldForDictItemChName="" BindFieldForDictItemEnName="">
+<DataXml><DocumentElement>
+  <tetfmsysparam>
+    <id>1</id>
+    <param_value>300</param_value>
+    <remark>ETF监控提醒间隔（秒）</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>2</id>
+    <param_value>1</param_value>
+    <remark>是否开启邮箱验证</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>3</id>
+    <param_value>{"ip":"127.0.0.1","port":"1521","user_name":"user","password":"1","service":"sid","exec_user":""}</param_value>
+    <remark>短信数据库配置</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>4</id>
+    <param_value>{"ip":"smtp.qq.com","port":"25","addr":"****@**.com","user":"****@**.com","pwd":"******"}</param_value>
+    <remark>邮箱服务器配置JSON</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>5</id>
+    <param_value>1</param_value>
+    <remark>短信发送方式 1-数据库方式 2-EMP_HTTP 3-HTTP 4-数据库函数 5-HTTPSMS</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>6</id>
+    <param_value>{"host": "http://127.0.0.0:8888","user": "admin","pwd": "1"}</param_value>
+    <remark>短信http请求参数配置</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>7</id>
+    <param_value>1</param_value>
+    <remark>计算折溢价率的价格来源 1-最新价，2-买一价，3-卖一价，4-中间价</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>8</id>
+    <param_value>20</param_value>
+    <remark>历史成交量统计天数</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>9</id>
+    <param_value>10</param_value>
+    <remark>监控历史N分钟内申赎量</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>10</id>
+    <param_value>{"enable": "0","filepath": "综合信息查询-单元资产查询结果.xls"}</param_value>
+    <remark>单元资产查询文件</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>11</id>
+    <param_value>1</param_value>
+    <remark>申赎数据来源 1-外部系统 2-本系统</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>12</id>
+    <param_value>1</param_value>
+    <remark>申赎清单来源 1-外部系统 2-本系统</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>13</id>
+    <param_value>1</param_value>
+    <remark>是否展示普通补券信息</remark>
+  </tetfmsysparam>
+  <tetfmsysparam>
+    <id>14</id>
+    <param_value>1</param_value>
+    <remark>产品数据源 1-外部系统 2-本系统 3-外部和本系统</remark>
+  </tetfmsysparam>
+</DocumentElement></DataXml>
+  <Remark>ETF监控系统参数：
+    1.ETF监控提醒间隔
+    2.是否开启邮箱验证
+    3.短信数据库配置
+    4.邮箱服务器配置JSON
+    5.短信发送方式 1-数据库方式 2-EMP_HTTP 3-HTTP 4-数据库函数 5-5-HTTPSMS
+    6.短信http请求参数配置
+    7.计算折溢价率的价格来源 1-最新价，2-买一价，3-卖一价，4-中间价
+    8.历史成交量统计天数
+</Remark>
+</BasicData>

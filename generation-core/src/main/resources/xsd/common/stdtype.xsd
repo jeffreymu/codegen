@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ArrayOfStdtype" type="ArrayOfStdtypeType"/>
+  <xs:complexType name="ArrayOfStdtypeType">
+    <xs:sequence>
+      <xs:element type="StdtypeType" name="Stdtype" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StdtypeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="Name" use="optional"/>
+        <xs:attribute type="xs:string" name="BasicType" use="optional"/>
+        <xs:attribute type="xs:string" name="Length" use="optional"/>
+        <xs:attribute type="xs:string" name="Precision" use="optional"/>
+        <xs:attribute type="xs:string" name="Remark" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

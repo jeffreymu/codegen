@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfSubsystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Subsystem Id="1" EnName="basic" ChName="基础" Tablespace="" />
+  <Subsystem Id="2" EnName="trade" ChName="交易" Tablespace="" />
+  <Subsystem Id="3" EnName="clear" ChName="清算" Tablespace="" />
+  <Subsystem Id="4" EnName="trans" ChName="报盘" Tablespace="" />
+  <Subsystem Id="5" EnName="report" ChName="报表" Tablespace="" />
+  <Subsystem Id="6" EnName="framework" ChName="框架" Tablespace="" />
+  <Subsystem Id="7" EnName="strategy" ChName="策略" Tablespace="" />
+  <Subsystem Id="8" EnName="compliance" ChName="合规" Tablespace="" />
+  <Subsystem Id="9" EnName="ins" ChName="指令" Tablespace="" />
+  <Subsystem Id="10" EnName="ops" ChName="运维" Tablespace="" />
+  <Subsystem Id="11" EnName="gtja" ChName="国泰君安" Tablespace="" />
+  <Subsystem Id="12" EnName="etfmanagement" ChName="ETF发行端" Tablespace="" />
+  <Subsystem Id="13" EnName="lsin" ChName="资金交收" Tablespace="" />
+  <Subsystem Id="14" EnName="lemon" ChName="交易行为监控" Tablespace="" />
+  <Subsystem Id="15" EnName="otc" ChName="场外" Tablespace="" />
+  <Subsystem Id="16" EnName="htzq" ChName="华泰证券" Tablespace="" />
+  <Subsystem Id="17" EnName="etfmonitor" ChName="ETF监控" Tablespace="" />
+  <Subsystem Id="18" EnName="portfolio" ChName="组合管理" Tablespace="" />
+  <Subsystem Id="19" EnName="algogate" ChName="算法网关" Tablespace="" />
+  <Subsystem Id="20" EnName="etl" ChName="数据转入" Tablespace="" />
+</ArrayOfSubsystem>

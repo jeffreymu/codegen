@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ServiceInterface" type="ServiceInterfaceType"/>
+  <xs:complexType name="SummaryType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Name"/>
+      <xs:element type="xs:string" name="Desciption"/>
+      <xs:element type="xs:string" name="ServiceType"/>
+      <xs:element type="xs:string" name="UseMdb"/>
+      <xs:element type="xs:string" name="GenMdbServiceAlso"/>
+      <xs:element type="xs:string" name="GenMdbPagedService"/>
+      <xs:element type="xs:string" name="MDBLockType"/>
+      <xs:element type="xs:string" name="MDBLockKeys"/>
+      <xs:element type="xs:string" name="LoadType"/>
+      <xs:element type="xs:string" name="Table"/>
+      <xs:element type="xs:string" name="FTable"/>
+      <xs:element type="xs:string" name="ForeignKeys"/>
+      <xs:element type="xs:string" name="HandWrite"/>
+      <xs:element type="xs:string" name="InterfaceMD5"/>
+      <xs:element type="xs:string" name="GenJavaCallerCode"/>
+      <xs:element type="xs:string" name="IsThirdParty"/>
+      <xs:element type="xs:string" name="IsClient"/>
+      <xs:element type="xs:string" name="JavaControllerType"/>
+      <xs:element type="xs:string" name="IntfLogMode"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ParamFieldsType">
+    <xs:sequence>
+      <xs:element type="IntfParamFieldType" name="IntfParamField" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InParamsType">
+    <xs:sequence>
+      <xs:element type="IntfParamType" name="IntfParam"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IntfParamFieldType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="Name" use="optional"/>
+        <xs:attribute type="xs:string" name="IsNeedEdit" use="optional"/>
+        <xs:attribute type="xs:string" name="Remark" use="optional"/>
+        <xs:attribute type="xs:string" name="CheckWay" use="optional"/>
+        <xs:attribute type="xs:string" name="CheckRange" use="optional"/>
+        <xs:attribute type="xs:string" name="CheckExtendRange" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ServiceInterfaceType">
+    <xs:sequence>
+      <xs:element type="SummaryType" name="Summary"/>
+      <xs:element type="InParamsType" name="InParams"/>
+      <xs:element type="OutParamsType" name="OutParams"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IntfParamType">
+    <xs:sequence>
+      <xs:element type="ParamFieldsType" name="ParamFields"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="IsDefault" use="optional"/>
+    <xs:attribute type="xs:string" name="Name" use="optional"/>
+    <xs:attribute type="xs:string" name="IsRepeat" use="optional"/>
+    <xs:attribute type="xs:string" name="Desciption" use="optional"/>
+    <xs:attribute type="xs:string" name="IsTableRelation" use="optional"/>
+    <xs:attribute type="xs:string" name="RelationTable" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="OutParamsType">
+    <xs:sequence>
+      <xs:element type="IntfParamType" name="IntfParam"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

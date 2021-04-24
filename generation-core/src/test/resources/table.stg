@@ -1,0 +1,8 @@
+protoTemplate(parms)
+::= <<
+<!-- Table Description -->
+type Beef struct {
+<parms:{ parm |<parm.name> <\t> <parm.type> <\t> `json:"<parm.namejson>"` <\n>}>
+}
+
+>>

@@ -1,0 +1,24 @@
+sequenceTemplate(params)
+::= <<
+<params.sequences: { seq |
+--------------------------------------------------
+-- <seq.name>, <seq.description>
+--------------------------------------------------
+prompt 正在执行 创建序列 <seq.name>
+declare
+  v_count number;
+	v_sequence_name varchar2(1000) := '<seq.name>';
+begin
+  select count(*) into v_count from user_sequences a where a.sequence_name = upper(v_sequence_name);
+  if (v_count = 0) then
+    execute immediate 'create sequence ' || v_sequence_name ||
+      ' increment by 1 start with <seq.start>' ||
+      ' maxvalue <seq.maxValue> minvalue <seq.minValue>' ||
+      ' cycle nocache noorder';
+  end if;
+end;
+/
+
+
+}>
+>>

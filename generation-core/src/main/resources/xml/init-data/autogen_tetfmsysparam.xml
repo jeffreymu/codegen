@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GBK"?>
+<data upgrade_mode="增量" enname="tetfmsysparam" chname="ETF监控系统参数表">
+  <row id="1" param_value="300" remark="ETF监控提醒间隔（秒）" />
+  <row id="2" param_value="1" remark="是否开启邮箱验证" />
+  <row id="3" param_value="{\&quot;ip\&quot;:\&quot;127.0.0.1\&quot;,\&quot;port\&quot;:\&quot;1521\&quot;,\&quot;user_name\&quot;:\&quot;user\&quot;,\&quot;password\&quot;:\&quot;1\&quot;,\&quot;service\&quot;:\&quot;sid\&quot;,\&quot;exec_user\&quot;:\&quot;\&quot;}" remark="短信数据库配置" />
+  <row id="4" param_value="{\&quot;ip\&quot;:\&quot;smtp.qq.com\&quot;,\&quot;port\&quot;:\&quot;25\&quot;,\&quot;addr\&quot;:\&quot;****@**.com\&quot;,\&quot;user\&quot;:\&quot;****@**.com\&quot;,\&quot;pwd\&quot;:\&quot;******\&quot;}" remark="邮箱服务器配置JSON" />
+  <row id="5" param_value="1" remark="短信发送方式 1-数据库方式 2-EMP_HTTP 3-HTTP 4-数据库函数 5-HTTPSMS" />
+  <row id="6" param_value="{\&quot;host\&quot;: \&quot;http://127.0.0.0:8888\&quot;,\&quot;user\&quot;: \&quot;admin\&quot;,\&quot;pwd\&quot;: \&quot;1\&quot;}" remark="短信http请求参数配置" />
+  <row id="7" param_value="1" remark="计算折溢价率的价格来源 1-最新价，2-买一价，3-卖一价，4-中间价" />
+  <row id="8" param_value="20" remark="历史成交量统计天数" />
+  <row id="9" param_value="10" remark="监控历史N分钟内申赎量" />
+  <row id="10" param_value="{\&quot;enable\&quot;: \&quot;0\&quot;,\&quot;filepath\&quot;: \&quot;综合信息查询-单元资产查询结果.xls\&quot;}" remark="单元资产查询文件" />
+  <row id="11" param_value="1" remark="申赎数据来源 1-外部系统 2-本系统" />
+  <row id="12" param_value="1" remark="申赎清单来源 1-外部系统 2-本系统" />
+  <row id="13" param_value="1" remark="是否展示普通补券信息" />
+  <row id="14" param_value="1" remark="产品数据源 1-外部系统 2-本系统 3-外部和本系统" />
+</data>

@@ -1,0 +1,67 @@
+tableTemplate(params)
+::= <<
+
+<! 数据库表结构定义 !>
+prompt 正在执行 创建表 <params.name>
+
+declare v_count int;
+begin
+  select count(*) into v_count from user_tables where table_name = UPPER('<params.shadowName>');
+  if v_count > 0
+  then execute immediate 'drop table <params.shadowName> cascade constraints purge';
+  end if;
+end;
+/
+
+create table <params.shadowName>
+(
+  <params.fields:{f | <f.name> <f.type>(<f.length><if(f.precision)>,<f.precision><endif>) default <f.defaultValue> <f.nullable>,<\n>}>
+  <params.lastField:{lf | <lf.name> <lf.type>(<lf.length><if(lf.precision)>,<lf.precision><endif>) default <lf.defaultValue> <lf.nullable>}>
+);
+
+declare
+  table_id varchar(4000);
+begin
+  select to_char(a.object_id) into table_id from user_objects a where a.object_name = upper('<params.shadowName>');
+  --开始建索引
+  execute immediate 'alter table <params.shadowName> add constraint pk_'||table_id||' primary key(<params.pkIndex.fieldName>)';
+  <params.indexes:{f | execute immediate 'create index idx_'||table_id||'_<f.indexName> on <params.shadowName>(<f.fieldName>)';<\n>}>
+end;
+/
+
+begin upgrade_table('<params.name>', '<params.shadowName>'); end;
+/
+
+<if(params.needDBCheck)>
+prompt 正在执行 创建表 <params.checkName>
+
+declare v_count int;
+begin
+  select count(*) into v_count from user_tables where table_name = UPPER('<params.checkShadowName>');
+  if v_count > 0
+  then execute immediate 'drop table <params.checkShadowName> cascade constraints purge';
+  end if;
+end;
+/
+
+create table <params.checkShadowName>
+(
+  check_id number(10) default 0 not null,
+  <params.fields:{f | <f.name> <f.type>(<f.length><if(f.precision)>,<f.precision><endif>) default <f.defaultValue> <f.nullable>,<\n>}>
+  <params.lastField:{lf | <lf.name> <lf.type>(<lf.length><if(lf.precision)>,<lf.precision><endif>) default <lf.defaultValue> <lf.nullable>}>
+);
+
+declare
+  table_id varchar(4000);
+begin
+  select to_char(a.object_id) into table_id from user_objects a where a.object_name = upper('<params.checkShadowName>');
+  --开始建索引
+  execute immediate 'alter table <params.checkShadowName> add constraint pk_'||table_id||' primary key(<params.pkIndex.fieldName>)';
+  <params.indexes:{f | execute immediate 'create index idx_'||table_id||'_<f.indexName> on <params.checkShadowName>(<f.fieldName>)';<\n>}>
+end;
+/
+
+begin upgrade_table('<params.checkName>', '<params.shadowName>'); end;
+/
+<endif>
+>>

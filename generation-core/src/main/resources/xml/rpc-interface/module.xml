@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<ArrayOfCommonModule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CommonModule SubsystemId="1" Name="交易">
+    <SubModules>
+      <CommonModule SubsystemId="1" Name="混合业务">
+        <SubModules />
+        <Files />
+      </CommonModule>
+    </SubModules>
+    <Files />
+  </CommonModule>
+  <CommonModule SubsystemId="1" Name="基础">
+    <SubModules>
+      <CommonModule SubsystemId="1" Name="pubservice">
+        <SubModules />
+        <Files>
+          <CommonFile Name="登陆接口" RelationTable="" />
+          <CommonFile Name="登出接口" RelationTable="" />
+          <CommonFile Name="心跳接口" RelationTable="" />
+          <CommonFile Name="密码修改" RelationTable="" />
+          <CommonFile Name="证券信息缓存接口" RelationTable="" />
+          <CommonFile Name="数据字典缓存接口" RelationTable="" />
+          <CommonFile Name="市场信息缓存接口" RelationTable="" />
+          <CommonFile Name="证券类别缓存接口" RelationTable="" />
+          <CommonFile Name="产品信息缓存接口" RelationTable="" />
+          <CommonFile Name="单元信息缓存接口" RelationTable="" />
+          <CommonFile Name="组合信息缓存接口" RelationTable="" />
+          <CommonFile Name="新增操作员接口" RelationTable="" />
+          <CommonFile Name="修改操作员接口" RelationTable="" />
+          <CommonFile Name="删除操作员接口" RelationTable="" />
+          <CommonFile Name="查询操作员接口" RelationTable="" />
+          <CommonFile Name="系统参数缓存接口" RelationTable="" />
+          <CommonFile Name="机构参数缓存接口" RelationTable="" />
+        </Files>
+      </CommonModule>
+      <CommonModule SubsystemId="1" Name="securitymgr">
+        <SubModules />
+        <Files>
+          <CommonFile Name="新增证券基本信息接口" RelationTable="" />
+          <CommonFile Name="修改证券基本信息接口" RelationTable="" />
+          <CommonFile Name="删除证券基本信息接口" RelationTable="" />
+          <CommonFile Name="查询证券基本信息接口" RelationTable="" />
+        </Files>
+      </CommonModule>
+    </SubModules>
+    <Files />
+  </CommonModule>
+  <CommonModule SubsystemId="4" Name="报盘">
+    <SubModules>
+      <CommonModule SubsystemId="4" Name="前置机">
+        <SubModules />
+        <Files>
+          <CommonFile Name="分仓期货持仓查询" RelationTable="" />
+          <CommonFile Name="分仓期货资金余额查询" RelationTable="" />
+          <CommonFile Name="分仓期货股东账户查询" RelationTable="" />
+          <CommonFile Name="分仓期货持仓明细查询" RelationTable="" />
+          <CommonFile Name="分仓期货组合持仓明细查询" RelationTable="" />
+          <CommonFile Name="分仓期货保证金率查询" RelationTable="" />
+          <CommonFile Name="分仓期货交易费率查询" RelationTable="" />
+          <CommonFile Name="分仓期货订单申报" RelationTable="" />
+          <CommonFile Name="分仓期货订单撤销申报" RelationTable="" />
+          <CommonFile Name="分仓现货持仓查询" RelationTable="" />
+          <CommonFile Name="分仓现货资金余额查询" RelationTable="" />
+          <CommonFile Name="分仓现货资金流水查询" RelationTable="" />
+          <CommonFile Name="分仓现货交割流水查询" RelationTable="" />
+          <CommonFile Name="分仓现货股东账户查询" RelationTable="" />
+        </Files>
+      </CommonModule>
+      <CommonModule SubsystemId="4" Name="报盘基础">
+        <SubModules />
+        <Files>
+          <CommonFile Name="分仓期货资金账号查询" RelationTable="" />
+        </Files>
+      </CommonModule>
+    </SubModules>
+    <Files />
+  </CommonModule>
+  <CommonModule SubsystemId="3" Name="清算">
+    <SubModules>
+      <CommonModule SubsystemId="3" Name="清算流程">
+        <SubModules />
+        <Files>
+          <CommonFile Name="日操作流程-清算前准备" RelationTable="" />
+          <CommonFile Name="日操作流程-预清算" RelationTable="" />
+          <CommonFile Name="日操作流程-初始化" RelationTable="" />
+        </Files>
+      </CommonModule>
+      <CommonModule SubsystemId="3" Name="数据接收">
+        <SubModules />
+        <Files>
+          <CommonFile Name="分仓现货持仓数据插入" RelationTable="" />
+          <CommonFile Name="分仓现货资金余额数据插入" RelationTable="" />
+          <CommonFile Name="分仓现货资金流水数据插入" RelationTable="" />
+          <CommonFile Name="分仓现货交割流水数据插入" RelationTable="" />
+        </Files>
+      </CommonModule>
+    </SubModules>
+    <Files />
+  </CommonModule>
+</ArrayOfCommonModule>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GBK"?>
+<table enname="tetfmproduct" chname="ETF产品表">
+  <columns>
+    <item name="product_id" type="INT32" length="10" precision="0" nullable="n" default_value="" />
+    <item name="business_date" type="INT32" length="8" precision="0" nullable="y" default_value="" />
+    <item name="product_name" type="STRING" length="128" precision="0" nullable="y" default_value="" />
+    <item name="etf_securitytype" type="INT16" length="5" precision="0" nullable="y" default_value="" />
+    <item name="mkt_id" type="INT16" length="5" precision="0" nullable="y" default_value="" />
+    <item name="etf_securitycode2" type="STRING" length="64" precision="0" nullable="y" default_value="" />
+    <item name="underlyingindex_code" type="STRING" length="64" precision="0" nullable="y" default_value="" />
+    <item name="underlyingindex_mktid" type="INT16" length="5" precision="0" nullable="y" default_value="" />
+    <item name="etf_last_nav" type="DOUBLE" length="15" precision="4" nullable="y" default_value="" />
+    <item name="nav_percu" type="DOUBLE" length="15" precision="4" nullable="y" default_value="" />
+    <item name="creationredemption_unit" type="INT32" length="10" precision="0" nullable="y" default_value="" />
+    <item name="estimatecash" type="DOUBLE" length="15" precision="2" nullable="y" default_value="" />
+    <item name="etf_capitalcode" type="STRING" length="32" precision="0" nullable="y" default_value="" />
+    <item name="etf_capitalcode_mktid" type="INT16" length="5" precision="0" nullable="y" default_value="" />
+    <item name="capitalcode2" type="STRING" length="32" precision="0" nullable="y" default_value="" />
+    <item name="capitalcode2_mktid" type="INT16" length="5" precision="0" nullable="y" default_value="" />
+    <item name="etf_creation_limit" type="DOUBLE" length="15" precision="2" nullable="y" default_value="" />
+    <item name="etf_redemption_limit" type="DOUBLE" length="15" precision="2" nullable="y" default_value="" />
+    <item name="shareholder_id" type="STRING" length="64" precision="0" nullable="y" default_value="" />
+    <item name="seat_code" type="STRING" length="32" precision="0" nullable="y" default_value="" />
+    <item name="product_source" type="INT16" length="5" precision="0" nullable="y" default_value="1" />
+  </columns>
+  <indexs>
+    <item name="pk_tetfmproduct" type="primary" columns="product_id" />
+    <item name="uidx_tetfmproduct_1" type="uindex" columns="etf_securitycode2" />
+  </indexs>
+</table>

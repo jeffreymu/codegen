@@ -1,0 +1,34 @@
+serviceRegTemplate(params)
+::= <<
+
+<params.services:{ e | <params.hashKey>include "autogen_<e.serviceName>_service.h"; <\n>}>
+
+namespace longshare
+{
+  namespace mdbcom
+  {
+    class <params.componentName>_component :public rx::tradecore::IComponent
+    {
+        public:
+          void Initialize() override
+          {
+            /*do nothing*/
+          }
+
+          void Finalize() override
+          {
+            /*do nothing*/
+          }
+
+          void Register(rx::tradecore::IServiceRegister* reg) override
+          {
+          <params.services:{ e |reg->RegRpcService("<e.serviceName>", new <e.serviceName>_factory());<\n>}>
+          }
+   }
+}
+
+extern "C" DLL_EXPORT rx::tradecore::IComponent* NewComponent()
+{
+  return new longshare::mdbcom::<params.componentName>_component();
+}
+>>
