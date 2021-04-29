@@ -21,6 +21,9 @@ public class CommonFileAlterationListener extends FileAlterationListenerAdaptor 
     @Autowired
     private WatchableDisruptorWrapper publisher;
 
+    @Autowired
+    private WatchableSourceFilePublisher watchableSourceFilePublisher;
+
     @Override
     public void onStart(FileAlterationObserver observer) {
         super.onStart(observer);

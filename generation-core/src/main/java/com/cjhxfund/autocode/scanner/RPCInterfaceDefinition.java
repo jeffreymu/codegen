@@ -2,6 +2,7 @@ package com.cjhxfund.autocode.scanner;
 
 import com.cjhxfund.autocode.wesklake.config.WestLakeSourceFileConfig;
 import com.cjhxfund.autocode.wesklake.model.xsd.common.db.ModulePropertyType;
+import com.cjhxfund.autocode.wesklake.model.xsd.rpc.IntfParamType;
 import com.cjhxfund.autocode.wesklake.model.xsd.rpc.ServiceInterfaceType;
 import com.cjhxfund.autocode.wesklake.parse.DefinitionFileParserFactory;
 import com.google.common.collect.ArrayListMultimap;
@@ -15,10 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -40,6 +38,13 @@ public class RPCInterfaceDefinition {
     private Multimap<String, String> interfacesOfModule = ArrayListMultimap.create();
     private Multimap<String, ServiceInterfaceType> interfacesTypeOfModule = ArrayListMultimap.create();
 
+    /**
+     * table as param for rpc interface
+     * key is table, value is rpc-interface(s)
+     */
+    private Multimap<String, ServiceInterfaceType> tableInParamOfInterfaces = ArrayListMultimap.create();
+    private Multimap<String, ServiceInterfaceType> tableOutParamOfInterfaces = ArrayListMultimap.create();
+
     @PostConstruct
     private void init() {
         threadPool = new ThreadPoolExecutor(10, 15, 60,
@@ -53,6 +58,17 @@ public class RPCInterfaceDefinition {
 
     public List<ServiceInterfaceType> findRPCInterfacesTypeOfModule(String moduleName) {
         return (List<ServiceInterfaceType>) interfacesTypeOfModule.get(moduleName);
+    }
+
+    public List<ServiceInterfaceType> fineRPCinterfacesByTableName(String tableName, TableParamType type) {
+        List<ServiceInterfaceType> rpcInterface = new ArrayList<>();
+        if (type == TableParamType.INPUT) {
+            rpcInterface = (List<ServiceInterfaceType>) tableInParamOfInterfaces.get(tableName);
+        }
+        if (type == TableParamType.OUTPUT) {
+            rpcInterface = (List<ServiceInterfaceType>) tableOutParamOfInterfaces.get(tableName);
+        }
+        return rpcInterface;
     }
 
     private void loadRPCInterfaceCategory() {
@@ -69,6 +85,8 @@ public class RPCInterfaceDefinition {
         log.info("++++++++++++++++++++++++++++++++++++");
         log.info("RPC interface definition path: {}", interfacePath);
         interfaceCategory.forEach((key, value) -> log.info("RPC-Category: " + key + "->" + value));
+        log.info("Table in-param in rpc-interface size {}", tableInParamOfInterfaces.keys().size());
+        log.info("Table out-param in rpc-interface size {}", tableOutParamOfInterfaces.keys().size());
         log.info("++++++++++++++++++++++++++++++++++++");
         try {
             countDownLatch.await();
@@ -136,6 +154,21 @@ public class RPCInterfaceDefinition {
                         String rpcEnName = serviceInterfaceType.getSummary().getName();
                         interfacesOfModule.put(moduleName, rpcEnName);
                         interfacesTypeOfModule.put(moduleName, serviceInterfaceType);
+
+                        if (serviceInterfaceType.getOutParams().getIntfParam() != null) {
+                            if (serviceInterfaceType.getOutParams().getIntfParam().getIsTableRelation().equals("true")) {
+                                tableOutParamOfInterfaces.put(serviceInterfaceType.getOutParams().getIntfParam().getRelationTable(),
+                                        serviceInterfaceType);
+                            }
+                        }
+                        if (serviceInterfaceType.getInParams().getIntfParam() != null) {
+                            List<IntfParamType> paramTypes = serviceInterfaceType.getInParams().getIntfParam();
+                            for (IntfParamType paramType : paramTypes) {
+                                if (paramType.getIsTableRelation().equals("true")) {
+                                    tableInParamOfInterfaces.put(paramType.getRelationTable(), serviceInterfaceType);
+                                }
+                            }
+                        }
                     }
                 }
             } catch (Exception ex) {

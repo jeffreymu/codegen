@@ -1,7 +1,8 @@
 package com.cjhxfund.autocode.wesklake.watcher;
 
-import com.cjhxfund.autocode.disruptor.wrapper.WatchableDisruptorWrapper;
 import com.cjhxfund.autocode.disruptor.event.RpcInterfaceEventData;
+import com.cjhxfund.autocode.disruptor.event.ValueEvent;
+import com.cjhxfund.autocode.disruptor.wrapper.WatchableDisruptorWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
@@ -18,8 +19,13 @@ import java.text.MessageFormat;
 @Component
 public class RpcInterfaceFileAlterationListener extends FileAlterationListenerAdaptor {
 
+    private final static boolean enablePublish = false;
+
     @Autowired
     private WatchableDisruptorWrapper publisher;
+
+    @Autowired
+    private WatchableSourceFilePublisher watchableSourceFilePublisher;
 
     @Override
     public void onStart(FileAlterationObserver observer) {
@@ -50,14 +56,22 @@ public class RpcInterfaceFileAlterationListener extends FileAlterationListenerAd
     public void onFileCreate(File file) {
         log.info(MessageFormat.format("File [{0}] is created",file.getAbsolutePath()));
         if (file.getName().endsWith("xml")) {
-            publisher.publishRpcInterface(RpcInterfaceEventData.EventFactory.newEvent(file));
+            if (enablePublish) {
+                publisher.publishRpcInterface(RpcInterfaceEventData.EventFactory.newEvent(file));
+            } else {
+                watchableSourceFilePublisher.putFile(ValueEvent.EventType.RPC_INTERFACE, file);
+            }
         }
     }
 
     @Override
     public void onFileChange(File file) {
         log.info(MessageFormat.format("File [{0}] is modified",file.getAbsolutePath()));
-        publisher.publishRpcInterface(RpcInterfaceEventData.EventFactory.newEvent(file));
+        if (enablePublish) {
+            publisher.publishRpcInterface(RpcInterfaceEventData.EventFactory.newEvent(file));
+        } else {
+            watchableSourceFilePublisher.putFile(ValueEvent.EventType.RPC_INTERFACE, file);
+        }
     }
 
     @Override

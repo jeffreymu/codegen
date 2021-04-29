@@ -18,8 +18,13 @@ import java.text.MessageFormat;
 @Component
 public class DBConfigFileAlterationListener extends FileAlterationListenerAdaptor {
 
+    private final static boolean enablePublish = false;
+
     @Autowired
     private WatchableDisruptorWrapper publisher;
+
+    @Autowired
+    private WatchableSourceFilePublisher watchableSourceFilePublisher;
 
     @Override
     public void onStart(FileAlterationObserver observer) {
@@ -50,14 +55,22 @@ public class DBConfigFileAlterationListener extends FileAlterationListenerAdapto
     public void onFileCreate(File file) {
         log.info(MessageFormat.format("File [{0}] is created",file.getAbsolutePath()));
         if (file.getName().endsWith("xml")) {
-            publisher.publishDBInitData(DBInitDataEventData.EventFactory.newEvent(file));
+            if (enablePublish) {
+                publisher.publishDBInitData(DBInitDataEventData.EventFactory.newEvent(file));
+            } else {
+                watchableSourceFilePublisher.putFile(ValueEvent.EventType.INIT_DATA, file);
+            }
         }
     }
 
     @Override
     public void onFileChange(File file) {
         log.info(MessageFormat.format("File [{0}] is modified",file.getAbsolutePath()));
-        publisher.publishDBInitData(DBInitDataEventData.EventFactory.newEvent(file));
+        if (enablePublish) {
+            publisher.publishDBInitData(DBInitDataEventData.EventFactory.newEvent(file));
+        } else {
+            watchableSourceFilePublisher.putFile(ValueEvent.EventType.INIT_DATA, file);
+        }
     }
 
     @Override

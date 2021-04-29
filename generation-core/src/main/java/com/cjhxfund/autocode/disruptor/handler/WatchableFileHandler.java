@@ -16,6 +16,8 @@ import com.cjhxfund.autocode.model.out.table.DBInitData;
 import com.cjhxfund.autocode.model.out.table.DBTable;
 import com.cjhxfund.autocode.model.out.table.Dictionaries;
 import com.cjhxfund.autocode.model.out.table.Sequences;
+import com.cjhxfund.autocode.scanner.RPCInterfaceDefinition;
+import com.cjhxfund.autocode.scanner.TableParamType;
 import com.cjhxfund.autocode.wesklake.config.WestLakeSourceFileConfig;
 import com.cjhxfund.autocode.wesklake.model.xsd.base.BasicDataType;
 import com.cjhxfund.autocode.wesklake.model.xsd.common.db.ArrayOfSequenceType;
@@ -71,6 +73,9 @@ public class WatchableFileHandler implements WorkHandler<ValueEvent> {
 
     @Autowired
     private DataAssembleManager dataAssembleManager;
+
+    @Autowired
+    private RPCInterfaceDefinition rpcInterfaceDefinition;
 
     @Override
     public void onEvent(ValueEvent event) throws Exception {
@@ -345,6 +350,25 @@ public class WatchableFileHandler implements WorkHandler<ValueEvent> {
                 return;
             publishDBTableEx(dataAssembleManager.getDbTableCxxAssembler().assembleCxxFile(dbTable));
             publishDBTableEx(dataAssembleManager.getDbTableImplCxxAssembler().assembleCxxImplFile(dbTable));
+
+            if (dbTable != null) {
+                List<ServiceInterfaceType> rpcInterfaces = rpcInterfaceDefinition.fineRPCinterfacesByTableName(tableType.getEnname(), TableParamType.INPUT);
+                log.info("Need to generate {} proto file for input param", rpcInterfaces.size());
+                for (ServiceInterfaceType rpcInterface : rpcInterfaces) {
+                    log.info("Handle rpc interface {} with input table param", rpcInterface.getSummary().getName());
+                    ProtoFlatContent flatContent = dataAssembleManager.getRpcInterfaceAssembler().assemble(
+                            subSystem, moduleName, rpcInterface.getSummary().getName(), rpcInterface);
+                    publishProtoContent(flatContent);
+                }
+                rpcInterfaces = rpcInterfaceDefinition.fineRPCinterfacesByTableName(tableType.getEnname(), TableParamType.OUTPUT);
+                log.info("Need to generate {} proto file for output param", rpcInterfaces.size());
+                for (ServiceInterfaceType rpcInterface : rpcInterfaces) {
+                    log.info("Handle rpc interface {} with output table param", rpcInterface.getSummary().getName());
+                    ProtoFlatContent flatContent = dataAssembleManager.getRpcInterfaceAssembler().assemble(
+                            subSystem, moduleName, rpcInterface.getSummary().getName(), rpcInterface);
+                    publishProtoContent(flatContent);
+                }
+            }
         } catch (JAXBException e) {
             e.printStackTrace();
         }
